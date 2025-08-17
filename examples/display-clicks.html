@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Display clicks</title>
+</head>
+<body>
+  <div>
+    <a id="link" href="">Click here</a>
+  </div>
+  <div>
+    Number of clicks: <span id="clickCount">0</span>
+  </div>
+  <script type="module">
+    const link = document.querySelector('#link');
+    const clickCount = document.querySelector('#clickCount');
+    let count = 1;
+    link.addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault();
+        clickCount.innerText = String(count);
+        count = count + 1;
+      }
+    );
+  </script>
+</body>
+</html>
