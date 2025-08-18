@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Magic 8 Ball</title>
+</head>
+<body>
+  <h1>Magic 8 Ball</h1>
+
+  <ol>
+    <li>Ask a yes-no question!</li>
+    <li><button id="answerButton">Click to show answer</button></li>
+  </ol>
+  <p id="answerPlaceholder"></p>
+  
+  <script type="module">
+    // https://en.wikipedia.org/wiki/Magic_8_Ball
+    const answers = [
+      // Affirmative
+      'It is certain',
+      'It is decidedly so',
+      'Without a doubt',
+      'Yes definitely',
+      'You may rely on it',
+      'As I see it, yes',
+      'Most likely',
+      'Outlook good',
+      'Yes',
+      'Signs point to yes',
+      // Neutral
+      'Reply hazy, try again',
+      'Ask again later',
+      'Better not tell you now',
+      'Cannot predict now',
+      'Concentrate and ask again',
+      // Negative
+      'Don’t count on it',
+      'My reply is no',
+      'My sources say no',
+      'Outlook not so good',
+      'Very doubtful',
+    ];
+
+    /** Returns a random integer i with 0 <= i < max */
+    const getRandomInteger = (max) => {
+      return Math.floor(Math.random() * max);
+    };
+
+    const answerButton = document.querySelector('#answerButton');
+    const answerPlaceholder = document.querySelector('#answerPlaceholder');
+
+    answerButton.addEventListener(
+      'click',
+      () => {
+        const answerIndex = getRandomInteger(answers.length);
+        const answer = answers[answerIndex];
+        answerPlaceholder.innerText = 'Answer: ' + answer;
+      }
+    );
+  </script>
+</body>
+</html>
