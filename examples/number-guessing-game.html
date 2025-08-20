@@ -45,14 +45,22 @@
     };
 
     const continueGame = (guessedNumber) => {
+      //----- Error checks -----
       if (Number.isNaN(guessedNumber)) {
         feedback.innerText = '❌ Your guess must be a number!';
         return;
       }
       if (guessedNumber < LOWER || guessedNumber > UPPER) {
-        feedback.innerText = '❌ Your guess must be at least ' + LOWER + ' and at most ' + UPPER + '.';
+        // Parentheses are not required but help with readability
+        feedback.innerText = (
+          '❌ Your guess must be ' +
+          'at least ' + LOWER + ' and ' +
+          'at most ' + UPPER + '.'
+        );
         return;
       }
+
+      //----- Guess is valid – process it -----
       if (guessedNumber === randomNumber) {
         feedback.innerText = '✅ Your guess is correct!';
         guessButton.disabled = true;
