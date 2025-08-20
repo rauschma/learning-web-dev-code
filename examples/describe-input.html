@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Describe input</title>
+</head>
+<body>
+  <h1>Describe input</h1>
+
+  <p>
+    Enter a number and press Return:
+    <input type="text">
+  </p>
+  <p id="description"></p>
+
+  <script type="module">
+    const describeNumber = () => {
+      if (Number.isNaN(num)) {
+        return 'Not a number';
+      } else if (Number.isInteger(num)) {
+        return 'An integer';
+      } else {
+        return 'A floating point number';
+      }
+    };
+
+    const description = document.querySelector('#description');
+    document.querySelector('input')
+      .addEventListener(
+        'change',
+        (event) => {
+          const str = event.target.value;
+          const num = Number(str);
+          description.innerText = describeNumber(num);
+        }
+      );
+  </script>
+</body>
+</html>
