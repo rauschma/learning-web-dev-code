@@ -37,7 +37,6 @@
     let randomNumber = undefined;
     const startGame = () => {
       randomNumber = getRandomIntegerBetween(LOWER, UPPER + 1);
-      console.debug(randomNumber);
       // Remove feedback from previous game (if there was one)
       feedback.innerText = '';
       guessButton.disabled = false;
