@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fruits you like (fixed)</title>
+</head>
+<body>
+  <h1>Fruits you like (fixed)</h1>
+  Check all fruits you like:
+  <ul>
+    <li>
+      <label>
+        <input type="checkbox" value="apples"> apples
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" value="bananas"> bananas
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" value="oranges"> oranges
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" value="strawberries"> strawberries
+      </label>
+    </li>
+    <li>
+      <label>
+        <input type="checkbox" value="watermelons"> watermelons
+      </label>
+    </li>
+  </ul>
+
+  <p>
+    You like: <span id="feedbackSpan"></span>
+  </p>
+
+  <script type="module">
+    const updateFeedback = () => {
+      const selectedFruits = [];
+      for (const i of document.querySelectorAll('input')) {
+        if (i.checked) {
+          selectedFruits.push(i.value);
+        }
+      }
+      document.querySelector('#feedbackSpan').innerText =
+        selectedFruits.join(', ');
+    };
+    
+    document.querySelector('ul')
+      .addEventListener(
+        'change',
+        (event) => {
+          updateFeedback();
+        }
+      );
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fruits you like (generated)</title>
+</head>
+<body>
+  <h1>Fruits you like (generated)</h1>
+  Check all fruits you like:
+  <ul>
+  </ul>
+
+  <p>
+    You like: <span id="feedbackSpan"></span>
+  </p>
+
+  <script type="module">
+    const fruits = [
+      'apples',
+      'bananas',
+      'oranges',
+      'strawberries',
+      'watermelons',
+    ];
+
+    const ul = document.querySelector('ul');
+    for (const f of fruits) {
+      const html = `
+        <li>
+          <label>
+            <input type="checkbox" value="${f}"> ${f}
+          </label>
+        </li>
+      `;
+      ul.insertAdjacentHTML('beforeend', html);
+    }
+
+    const updateFeedback = () => {
+      const selectedFruits = [];
+      for (const i of document.querySelectorAll('input')) {
+        if (i.checked) {
+          selectedFruits.push(i.value);
+        }
+      }
+      document.querySelector('#feedbackSpan').innerText = (
+        selectedFruits.join(', ')
+      );
+    };
+    
+    document.querySelector('ul')
+      .addEventListener(
+        'change',
+        (event) => {
+          updateFeedback();
+        }
+      );
+  </script>
+</body>
+</html>
