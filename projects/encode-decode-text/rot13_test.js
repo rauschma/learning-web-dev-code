@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { rot13, rot13Char } from './rot13.js';
 
-test('rot13Char()', (t) => {
+test('rot13Char()', () => {
   assert.equal(
     rot13Char('a', 'a'), 'n'
   );
@@ -17,7 +17,7 @@ test('rot13Char()', (t) => {
   );
 });
 
-test('rot13(): once', (t) => {
+test('rot13(): once', () => {
   assert.equal(
     rot13('This is a secret!'),
     'Guvf vf n frperg!'
@@ -28,7 +28,7 @@ test('rot13(): once', (t) => {
   );
 });
 
-test('rot13(): twice', (t) => {
+test('rot13(): twice', () => {
   const rot13Twice = (str) => {
     assert.equal(
       rot13(rot13(str)),
