@@ -1,8 +1,9 @@
 export const rot13Char = (baseChar, char) => {
-  let relCodePoint = char.codePointAt(0) - baseChar.codePointAt(0);
+  const baseCodePoint = baseChar.codePointAt(0);
+  let relCodePoint = char.codePointAt(0) - baseCodePoint;
   relCodePoint = (relCodePoint + 13) % 26;
   return String.fromCodePoint(
-    baseChar.codePointAt(0) + relCodePoint
+    baseCodePoint + relCodePoint
   );
 };
 
