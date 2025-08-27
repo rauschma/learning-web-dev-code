@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Encode and decode text</title>
+</head>
+<body>
+  <h1>Encode and decode text</h1>
+
+  <div>
+    <textarea cols="80" rows="5"></textarea>
+  </div>
+
+  <div>
+    <button>Encode/decode</button>
+  </div>
+
+  <script type="module">
+    import { rot13 } from './rot13.js';
+    const textarea = document.querySelector('textarea');
+    document.querySelector('button')
+      .addEventListener(
+        'click',
+        () => {
+          textarea.value = rot13(textarea.value);
+        }
+      );
+  </script>
+</body>
+</html>
