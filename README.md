@@ -12,7 +12,6 @@
 * [`flash-cards/flash-cards.html`](https://rauschma.github.io/learning-web-dev-code/projects/flash-cards/flash-cards.html)
 * [`fruits-you-like-fixed.html`](https://rauschma.github.io/learning-web-dev-code/projects/fruits-you-like-fixed.html)
 * [`fruits-you-like-generated.html`](https://rauschma.github.io/learning-web-dev-code/projects/fruits-you-like-generated.html)
-* [`hello-nodejs.js`](https://rauschma.github.io/learning-web-dev-code/projects/hello-nodejs.js)
 * [`log-clicks.html`](https://rauschma.github.io/learning-web-dev-code/projects/log-clicks.html)
 * [`log-hello.html`](https://rauschma.github.io/learning-web-dev-code/projects/log-hello.html)
 * [`magic-8-ball.html`](https://rauschma.github.io/learning-web-dev-code/projects/magic-8-ball.html)
