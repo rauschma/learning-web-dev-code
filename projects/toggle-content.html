@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Toggle content</title>
+  <style>
+    #content.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Toggle content</h1>
+  <p>
+    <a href="">Toggle the content</a>
+  </p>
+  <p id="content" class="hidden">
+    Gallia est omnis divisa in partes tres, quarum unam incolunt Belgae, aliam Aquitani, tertiam qui ipsorum lingua Celtae, nostra Galli appellantur. Hi omnes lingua, institutis, legibus inter se differunt. Gallos ab Aquitanis Garumna flumen, a Belgis Matrona et Sequana dividit. Horum omnium fortissimi sunt Belgae, propterea quod a cultu atque humanitate provinciae longissime absunt, minimeque ad eos mercatores saepe commeant atque ea quae ad effeminandos animos pertinent important.
+  </p>
+  <script type="module">
+    const content = document.querySelector('#content');
+    document.querySelector('a')
+      .addEventListener(
+        'click',
+        (event) => {
+          event.preventDefault();
+          content.classList.toggle('hidden');
+        }
+      );
+  </script>
+</body>
+</html>

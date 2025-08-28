@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Flash cards</title>
+  <style>
+    html {
+      margin: 2rem auto 2rem auto;
+      max-width: 40rem;
+    }
+    #flashCard {
+      border: solid thin gray;
+      border-radius: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: 1rem;
+    }
+    #back {
+      display: none;
+    }
+    #back.revealed {
+      display: initial;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flash cards</h1>
+
+  <p>Practice translating Spanish words to English.</p>
+
+  <p>
+    <button id="nextCard">Next Flashcard</button>
+  </p>
+
+  <p>
+    <a href="" id="toggleBack">Toggle Back</a>
+  </p>
+
+  <div id="flashCard">
+    <p id="front"></p>
+    <hr>
+    <p id="back"></p>
+  </div>
+
+  <p>
+    <span id="cardNumber"></span> of <span id="cardTotal"></span>
+  </p>
+
+  <script type="module">
+    import { shuffleArray } from './utils.js';
+    import { data } from './data.js';
+    let currentIndex = 0;
+
+    const showCard = (index) => {
+      const front = document.querySelector('#front');
+      const back = document.querySelector('#back');
+      const cardNumber = document.querySelector('#cardNumber');
+      
+      // Make sure the back is hidden
+      back.classList.remove('revealed');
+      
+      const card = data[index];
+      front.innerText = card.front;
+      back.innerText = card.back;
+      cardNumber.innerText = index + 1;
+    };
+
+    const startNewRound = () => {
+      const cardTotal = document.querySelector('#cardTotal');
+
+      shuffleArray(data);
+      cardTotal.innerText = data.length;
+
+      currentIndex = 0;
+      showCard(currentIndex);
+    };
+
+    const goToNextCard = () => {
+      currentIndex = currentIndex + 1;
+      if (currentIndex >= data.length) {
+        startNewRound(); // sets currentIndex to 0
+      } else {
+        showCard(currentIndex);
+      }
+    }
+
+    const toggleBack = () => {
+      const back = document.querySelector('#back');
+      back.classList.toggle('revealed');
+    };
+
+    document.querySelector('#nextCard')
+      .addEventListener(
+        'click',
+        () => goToNextCard()
+      );
+
+    document.querySelector('#toggleBack')
+      .addEventListener(
+        'click',
+        (event) => {
+          event.preventDefault();
+          toggleBack();
+        }
+      );
+    
+    startNewRound();
+  </script>
+</body>
+</html>
