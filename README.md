@@ -16,6 +16,5 @@
 * [`log-hello.html`](https://rauschma.github.io/learning-web-dev-code/projects/log-hello.html)
 * [`magic-8-ball.html`](https://rauschma.github.io/learning-web-dev-code/projects/magic-8-ball.html)
 * [`number-guessing-game.html`](https://rauschma.github.io/learning-web-dev-code/projects/number-guessing-game.html)
-* [`simple-module/simple-module.html`](https://rauschma.github.io/learning-web-dev-code/projects/simple-module/simple-module.html)
 * [`temperature-converter.html`](https://rauschma.github.io/learning-web-dev-code/projects/temperature-converter.html)
 * [`toggle-content.html`](https://rauschma.github.io/learning-web-dev-code/projects/toggle-content.html)
