@@ -1,5 +1,5 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import * as assert from 'node:assert/strict';
 import { rot13, rot13Char } from './rot13.js';
 
 test('rot13Char()', () => {
