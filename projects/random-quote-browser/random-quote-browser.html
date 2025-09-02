@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Random quote (browser)</title>
+</head>
+<body>
+  <h1>Random quote (browser)</h1>
+  <p>
+    <button disabled>Show random quote</button>
+  </p>
+  <div id="quote"></div>
+  <div id="author"></div>
+
+  <script type="module">
+    /** Returns a random integer i with 0 <= i < max */
+    const getRandomInteger = (max) => {
+      return Math.floor(Math.random() * max);
+    };
+
+    const loadQuotes = async () => {
+      const quotesUrl = new URL('quotes.json', import.meta.url);
+      const quotesResponse = await fetch(quotesUrl);
+      const quotes = await quotesResponse.json();
+      return quotes;
+    };
+
+    const quoteElem = document.querySelector('#quote');
+    const authorElem = document.querySelector('#author');
+    const showQuoteButton = document.querySelector('button');
+    
+    const quotes = await loadQuotes();
+    showQuoteButton.addEventListener(
+      'click',
+      () => {
+        const randomIndex = getRandomInteger(quotes.length);
+        const randomQuote = quotes[randomIndex];
+        
+        quoteElem.innerText = randomQuote.quote;
+        authorElem.innerText = '— ' + randomQuote.author;
+      }
+    );
+    showQuoteButton.disabled = false;
+  </script>
+</body>
+</html>

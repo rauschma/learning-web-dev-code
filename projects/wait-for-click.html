@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Wait for click</title>
+</head>
+<body>
+  <h1>Wait for click</h1>
+
+  <p>
+    <a href="">Click here!</a>
+  </p>
+  <p id="status"></p>
+
+  <script type="module">
+    const waitForClick = (elem) => {
+      return new Promise(
+        (resolve, reject) => {
+          elem.addEventListener(
+            'click',
+            (event) => {
+              event.preventDefault();
+              resolve(undefined);
+            },
+            { once: true }
+          );
+        }
+      );
+    };
+
+    await waitForClick(document.querySelector('a'));
+    document.querySelector('#status')
+      .innerText = 'Clicked';
+  </script>
+
+</body>
+</html>

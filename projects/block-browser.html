@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Block browser</title>
+</head>
+<body>
+  <h1>Block browser</h1>
+  <p>
+    <a id="block" href="">Block browser for 5 seconds</a>
+  <p>
+  <button>This is a button</button>
+  <div id="statusMessage"></div>
+
+  <script type="module">
+    const setStatusMessage = (msg) => {
+      document.querySelector('#statusMessage').innerText = msg;
+    };
+
+    const sleep = (milliseconds) => {
+      let start = Date.now();
+      while ((Date.now() - start) < milliseconds);
+    };
+
+    document.getElementById('block')
+      .addEventListener(
+        'click',
+        () => {
+          event.preventDefault();
+          setStatusMessage('Blocking...');
+          setTimeout(
+            () => {
+              sleep(5000);
+              setStatusMessage('Done');
+            },
+            1
+          );
+        }
+      );
+  </script>
+</body>
+</html>
