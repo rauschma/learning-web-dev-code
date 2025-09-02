@@ -6,6 +6,7 @@
 
 ## Run the client-side projects online
 
+* [`block-browser.html`](https://rauschma.github.io/learning-web-dev-code/projects/block-browser.html)
 * [`describe-input.html`](https://rauschma.github.io/learning-web-dev-code/projects/describe-input.html)
 * [`display-clicks.html`](https://rauschma.github.io/learning-web-dev-code/projects/display-clicks.html)
 * [`encode-decode-text/encode-decode-text.html`](https://rauschma.github.io/learning-web-dev-code/projects/encode-decode-text/encode-decode-text.html)
@@ -16,5 +17,7 @@
 * [`log-hello.html`](https://rauschma.github.io/learning-web-dev-code/projects/log-hello.html)
 * [`magic-8-ball.html`](https://rauschma.github.io/learning-web-dev-code/projects/magic-8-ball.html)
 * [`number-guessing-game.html`](https://rauschma.github.io/learning-web-dev-code/projects/number-guessing-game.html)
+* [`random-quote-browser/random-quote-browser.html`](https://rauschma.github.io/learning-web-dev-code/projects/random-quote-browser/random-quote-browser.html)
 * [`temperature-converter.html`](https://rauschma.github.io/learning-web-dev-code/projects/temperature-converter.html)
 * [`toggle-content.html`](https://rauschma.github.io/learning-web-dev-code/projects/toggle-content.html)
+* [`wait-for-click.html`](https://rauschma.github.io/learning-web-dev-code/projects/wait-for-click.html)
