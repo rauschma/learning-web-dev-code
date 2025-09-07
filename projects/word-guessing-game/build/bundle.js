@@ -82,16 +82,19 @@
     failuresProgress.innerText = String(failureCount);
     failureCountSpan.innerText = String(failureCount);
   };
+  var updateWord = (word) => {
+    const wordSpan = document.querySelector("#wordSpan");
+    wordSpan.innerText = word;
+  };
   var setMessage = (message) => {
     document.querySelector("#message").innerText = message;
   };
   var model = void 0;
   var updateUserInterface = () => {
     const failureCount = countFailures(model);
-    const wordSpan = document.querySelector("#wordSpan");
-    wordSpan.innerText = inputLettersToWordWithBlanks(model);
     updateFailures(failureCount);
-    if (failureCount === MAX_FAILURES) {
+    updateWord(inputLettersToWordWithBlanks(model));
+    if (failureCount >= MAX_FAILURES) {
       setMessage("\u274C Too many failures");
       disableAllInputLetterButtons();
       return;

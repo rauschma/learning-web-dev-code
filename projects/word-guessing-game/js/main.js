@@ -15,7 +15,7 @@ for (const letter of 'abcdefghijklmnopqrstuvwxyz') {
   );
 }
 
-//========== User interface helpers ==========
+//========== View functionality ==========
 
 const disableSomeInputLetterButtons = (inputLetters) => {
   for (const button of document.querySelectorAll('button.letter')) {
@@ -28,12 +28,18 @@ const disableAllInputLetterButtons = () => {
     button.disabled = true;
   }
 };
+
 const updateFailures = (failureCount) => {
   const failuresProgress = document.querySelector('#failuresProgress');
   const failureCountSpan = document.querySelector('#failureCountSpan');
   failuresProgress.value = failureCount;
   failuresProgress.innerText = String(failureCount);
   failureCountSpan.innerText = String(failureCount);
+};
+
+const updateWord = (word) => {
+  const wordSpan = document.querySelector('#wordSpan');
+  wordSpan.innerText = word;
 };
 
 const setMessage = (message) => {
@@ -49,13 +55,12 @@ const updateUserInterface = () => {
 
   //----- Display status: word and failures -----
 
-  const wordSpan = document.querySelector('#wordSpan');
-  wordSpan.innerText = inputLettersToWordWithBlanks(model);
   updateFailures(failureCount);
+  updateWord(inputLettersToWordWithBlanks(model));
 
   //----- Update input buttons -----
 
-  if (failureCount === MAX_FAILURES) {
+  if (failureCount >= MAX_FAILURES) {
     setMessage('❌ Too many failures');
     disableAllInputLetterButtons();
     return;
