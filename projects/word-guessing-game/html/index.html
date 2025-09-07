@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Word guessing game</title>
+</head>
+<body>
+  <div id="letterButtonsDiv">
+    <!--Generated via JavaScript-->
+  </div>
+  <div>
+    <label>
+      Used <span id="failureCountSpan">0</span>
+      of <span id="maxFailuresSpan">0</span> failures:
+      <progress id="failuresProgress" value="0">0</progress>
+    </label>
+  </div>
+  <div>
+    Word: <span id="wordSpan"></span>
+  </div>
+  <div id="message"></div>
+  <div>
+    <button id="newGameButton">Start new game</button>
+  </div>
+  <script type="module" src="bundle.js"></script>
+</body>
+</html>

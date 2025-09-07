@@ -21,3 +21,4 @@
 * [`temperature-converter.html`](https://rauschma.github.io/learning-web-dev-code/projects/temperature-converter.html)
 * [`toggle-content.html`](https://rauschma.github.io/learning-web-dev-code/projects/toggle-content.html)
 * [`wait-for-click.html`](https://rauschma.github.io/learning-web-dev-code/projects/wait-for-click.html)
+* [`word-guessing-game/build/index.html`](https://rauschma.github.io/learning-web-dev-code/projects/word-guessing-game/build/index.html)
