@@ -1,0 +1,24 @@
+{
+  "type": "module",
+  "scripts": {
+    "build:clean": "shx rm -rf \"./build/*\"",
+    "build:js": "esbuild --bundle js/main.js --outfile=build/bundle.js",
+    "build:html": "copyfiles --up 1 \"./html/**/*.{html,css,svg,jpg,png}\" ./build",
+    "build": "npm run build:clean && npm run build:js && npm run build:html",
+    "watch": "simple-file-watch --run-on-startup --recursive --path=\"html\" --path=\"js\" --command=\"npm run build\"",
+    "start": "live-server build --wait=1000",
+    "test": "node --test \"js/**/*_test.js\""
+  },
+  "dependencies": {
+    "@preact/signals": "^2.3.1",
+    "htm": "^3.1.1",
+    "preact": "^10.27.1"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "esbuild": "^0.25.9",
+    "live-server": "^1.2.2",
+    "shx": "^0.4.0",
+    "simple-file-watch": "^3.0.0"
+  }
+}

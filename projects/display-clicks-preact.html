@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Display clicks (Preact)</title>
+</head>
+
+<body>
+  <h1>Display clicks (Preact)</h1>
+  <div id="app"></div>
+
+  <!--Documented here: https://preactjs.com/guide/v10/no-build-workflows/ -->
+  <script type="importmap">
+    {
+      "imports": {
+        "preact": "https://esm.sh/preact",
+        "preact/": "https://esm.sh/preact/",
+        "htm/preact": "https://esm.sh/htm/preact?external=preact",
+        "@preact/signals": "https://esm.sh/@preact/signals?external=preact"
+      }
+    }
+  </script>
+  <script type="module">
+    import { render } from 'preact';
+    import { html } from 'htm/preact';
+    import { signal } from '@preact/signals';
+
+    const appModel = signal(0);
+
+    function ClickCounter({ linkText }) {
+      function handleClick(event) {
+        event.preventDefault();
+        appModel.value++;
+      }
+      return html`
+        <div>
+          <a href="" onclick=${handleClick}>${linkText}</a>
+        </div>
+        <div>
+          Number of clicks: ${appModel.value}
+        </div>
+      `;
+    }
+
+    render(
+      html`
+        <${ClickCounter} linkText="Click me!" />
+      `,
+      document.querySelector('#app')
+    );
+  </script>
+</body>
+
+</html>

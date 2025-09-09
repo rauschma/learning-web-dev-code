@@ -17,6 +17,9 @@ function getWebPath(dirPath, dirEnt) {
     }
   }
 
+  if (dirEnt.name.startsWith('.')) {
+    return null;
+  }
   if (NOT_CLIENT_PROJECT.has(dirEnt.name)) {
     return null;
   }

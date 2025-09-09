@@ -8,6 +8,7 @@
 
 * [`block-browser.html`](https://rauschma.github.io/learning-web-dev-code/projects/block-browser.html)
 * [`describe-input.html`](https://rauschma.github.io/learning-web-dev-code/projects/describe-input.html)
+* [`display-clicks-preact.html`](https://rauschma.github.io/learning-web-dev-code/projects/display-clicks-preact.html)
 * [`display-clicks.html`](https://rauschma.github.io/learning-web-dev-code/projects/display-clicks.html)
 * [`encode-decode-text/encode-decode-text.html`](https://rauschma.github.io/learning-web-dev-code/projects/encode-decode-text/encode-decode-text.html)
 * [`flash-cards/flash-cards.html`](https://rauschma.github.io/learning-web-dev-code/projects/flash-cards/flash-cards.html)
@@ -19,6 +20,7 @@
 * [`number-guessing-game.html`](https://rauschma.github.io/learning-web-dev-code/projects/number-guessing-game.html)
 * [`random-quote-browser/random-quote-browser.html`](https://rauschma.github.io/learning-web-dev-code/projects/random-quote-browser/random-quote-browser.html)
 * [`temperature-converter.html`](https://rauschma.github.io/learning-web-dev-code/projects/temperature-converter.html)
+* [`todo-list-browser/build/index.html`](https://rauschma.github.io/learning-web-dev-code/projects/todo-list-browser/build/index.html)
 * [`toggle-content.html`](https://rauschma.github.io/learning-web-dev-code/projects/toggle-content.html)
 * [`wait-for-click.html`](https://rauschma.github.io/learning-web-dev-code/projects/wait-for-click.html)
 * [`word-guessing-game/build/index.html`](https://rauschma.github.io/learning-web-dev-code/projects/word-guessing-game/build/index.html)
