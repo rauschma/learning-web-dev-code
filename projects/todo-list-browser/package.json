@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "build:clean": "shx rm -rf \"./build/*\"",
-    "build:js": "esbuild --bundle js/main.js --outfile=build/bundle.js",
+    "build:js": "esbuild --bundle --format=esm js/main.js --outfile=build/bundle.js",
     "build:html": "copyfiles --up 1 \"./html/**/*.{html,css,svg,jpg,png}\" ./build",
     "build": "npm run build:clean && npm run build:js && npm run build:html",
     "watch": "simple-file-watch --run-on-startup --recursive --path=\"html\" --path=\"js\" --command=\"npm run build\"",

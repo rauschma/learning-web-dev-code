@@ -1,5 +1,6 @@
-import { render } from 'preact';
 import { html } from 'htm/preact';
+import { render } from 'preact';
+import { useRef } from 'preact/hooks';
 import { addTodo, createAppModel, deleteTodo, updateChecked } from './app-model.js';
 
 const appModel = createAppModel();
@@ -35,10 +36,14 @@ function Todos({ todos }) {
 }
 
 function App() {
+  const inputRef = useRef(null);
+
   const add = () => {
-    const todoInput = document.querySelector('#todoInput');
-    addTodo(appModel, todoInput.value);
+    const todoInput = inputRef.current;
+    const todoText = todoInput.value;
     todoInput.value = '';
+    // Last step: update user interface
+    addTodo(appModel, todoText);
   };
   return html`
     <h1>Todo list</h1>
@@ -48,7 +53,7 @@ function App() {
     <div>
       <button onclick=${add}>Add:</button>
       ${' '}
-      <input id="todoInput" type="text" />
+      <input type="text" ref=${inputRef} />
     </div>
   `;
 }
