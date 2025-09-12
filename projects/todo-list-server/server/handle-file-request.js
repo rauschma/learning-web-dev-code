@@ -24,7 +24,8 @@ export const handleFileRequest = async (request, response) => {
   if (existsSync(fileUrl)) {
     response.statusCode = 200; // OK
 
-    const ext = path.extname(absPath);
+    // Allow both uppercase and lowercase filename extensions
+    const ext = path.extname(absPath).toLowerCase();
     const contentType = extensionToContentType.get(ext) ?? 'text/plain';
     response.setHeader('Content-Type', contentType);
 
