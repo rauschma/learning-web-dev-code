@@ -34,6 +34,11 @@ function getWebPath(dirPath, dirEnt) {
     }
     throw new Error('Unsupported filename extension: ' + dirEnt.name);
   } else if (dirEnt.isDirectory()) {
+    const serverPath = path.join(dirPath, dirEnt.name, 'server');
+    if (fs.existsSync(serverPath)) {
+      return null;
+    }
+
     const packageJsonPath = path.join(dirPath, dirEnt.name, 'package.json');
     if (fs.existsSync(packageJsonPath)) {
       const webPath = dirEnt.name + '/build/index.html';
