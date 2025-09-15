@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "node --watch server/server.js",
+    "test": "node --test \"server/**/*_test.js\""
+  },
+  "dependencies": {
+    "http-auth": "^4.2.1"
+  }
+}

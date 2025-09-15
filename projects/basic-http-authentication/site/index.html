@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Authenticated: {{user}}</title>
+</head>
+<body>
+  <h1>Authenticated: {{user}}</h1>
+  <p><a href="">Log out</a></p>
+  <script type="module">
+    document.querySelector('a').addEventListener(
+      'click',
+      async (event) => {
+        event.preventDefault();
+        await fetch(
+          '/index.html',
+          {
+            headers: {
+              'Authorization': 'Basic ' + btoa('logout:logout'),
+            },
+          }
+        );
+        // Reload page so that new user data is displayed
+        location.reload();
+      }
+    );
+  </script>
+</body>
+</html>
