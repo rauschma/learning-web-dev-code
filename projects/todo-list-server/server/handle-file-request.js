@@ -3,7 +3,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path/posix';
 
 // Sibling of parent directory of this module
-const SITE_DIR = new URL('../site/', import.meta.url);
+const SITE_DIR = new URL('../site', import.meta.url);
 
 const extensionToContentType = new Map([
   ['.js', 'text/javascript'],
@@ -18,9 +18,7 @@ export const handleFileRequest = async (request, response) => {
     absPath = '/index.html';
   }
 
-  // Remove leading slash
-  const relPath = absPath.slice(1);
-  const fileUrl = new URL(relPath, SITE_DIR);
+  const fileUrl = new URL(SITE_DIR + absPath);
   if (existsSync(fileUrl)) {
     response.statusCode = 200; // OK
 
