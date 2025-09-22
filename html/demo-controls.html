@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: HTML controls</title>
+  <style>
+    .vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    html {
+      margin: 2rem auto 2rem auto;
+      max-width: 40rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Demo: HTML controls</h1>
+
+  <h2 id="inputs">Various kinds of inputs</h2>
+
+  <div class="vertical">
+    <label>text: <input type="text"></label>
+    <label>tel: <input type="tel"></label>
+    <label>url: <input type="url"></label>
+    <label>email: <input type="email"></label>
+    <label>password: <input type="password"></label>
+    <label>date: <input type="date"></label>
+    <label>number: <input type="number"></label>
+  </div>
+
+  <h2 id="checkboxes">Checkboxes</h2>
+
+  <p>Which web technologies have you already used?</p>
+  
+  <div>
+    <label>
+      <input type="checkbox" name="flavor" value="html">
+      HTML
+    </label>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" name="flavor" value="css">
+      CSS
+    </label>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" name="flavor" value="javascript">
+      JavaScript
+    </label>
+  </div>
+
+  <h2 id="radio-buttons">Radio buttons</h2>
+
+  <p>What is your favorite ice cream flavor?</p>
+
+  <div>
+    <label>
+      <input type="radio" name="flavor" value="chocolate" checked>
+      Chocolate
+    </label>
+  </div>
+  <div>
+    <label>
+      <input type="radio" name="flavor" value="vanilla">
+      Vanilla
+    </label>
+  </div>
+  <div>
+    <label>
+      <input type="radio" name="flavor" value="strawberry">
+      Strawberry
+    </label>
+  </div>
+
+  <h2 id="textareas">Textareas</h2>
+
+  <label>
+    <div>
+      Any comments?
+    </div>
+    <div>
+<textarea name="comments" rows="5" cols="60">
+I love
+your website!
+</textarea>
+    </div>
+  </label>
+
+  <h2 id="buttons">Buttons</h2>
+
+  <button>Push me!</button>
+
+  <h2 id="attribute-disabled">The attribute <code>disabled</code></h2>
+
+  <div>
+    <label>
+      Disabled text field:
+      <input type="text" disabled>
+    </label>
+  </div>
+  <div>
+    Disabled button: <button disabled>Push me!</button>
+  </div>
+
+</body>
+</html>

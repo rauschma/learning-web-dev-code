@@ -8,15 +8,6 @@ const NOT_CLIENT_PROJECT = new Set([
 ]);
 
 function getWebPath(dirPath, dirEnt) {
-  function webPathMustExist(webPath) {
-    const localPath = path.join(dirPath, webPath);
-    if (!fs.existsSync(localPath)) {
-      throw new Error(
-        `Could not find web path ${webPath} in directory ${dirPath}`
-      );
-    }
-  }
-
   if (dirEnt.name.startsWith('.')) {
     return null;
   }
@@ -42,7 +33,14 @@ function getWebPath(dirPath, dirEnt) {
     const packageJsonPath = path.join(dirPath, dirEnt.name, 'package.json');
     if (fs.existsSync(packageJsonPath)) {
       const webPath = dirEnt.name + '/build/index.html';
-      webPathMustExist(webPath);
+      const localPath = path.join(dirPath, webPath);
+      if (!fs.existsSync(localPath)) {
+        // - Package directory does not contain built client-side content
+        // - Note: If there is both a server and client content, the
+        //   subdirectory is called site/ and not build/. The previous `if`
+        //   also catches such cases.
+        return null;
+      }
       return webPath;
     }
 
@@ -63,12 +61,37 @@ function getWebPath(dirPath, dirEnt) {
   }
 }
 
-const dirPath = process.argv[2];
-for (const dirEnt of fs.readdirSync(dirPath, { withFileTypes: true })) {
-  const webPath = getWebPath(dirPath, dirEnt);
-  if (webPath === null) continue;
-  const url = 'https://rauschma.github.io/learning-web-dev-code/projects/' + webPath;
-  console.log(
-    `* [▲${webPath}▲](${url})`.replaceAll('▲', '`')
-  );
+function main() {
+  const args = process.argv.slice(2);
+  const repoPath = args[0] ?? process.cwd();
+
+  {
+    console.log('## Visit the HTML pages online');
+    console.log();
+    const projectsPath = path.join(repoPath, 'html');
+    for (const dirEnt of fs.readdirSync(projectsPath, { withFileTypes: true })) {
+      if (!dirEnt.name.endsWith('.html')) continue;
+
+      const url = 'https://rauschma.github.io/learning-web-dev-code/html/' + dirEnt.name;
+      console.log(
+        `* [▲${dirEnt.name}▲](${url})`.replaceAll('▲', '`')
+      );
+    }
+  }
+  {
+    console.log();
+    console.log('## Run the client-side projects online');
+    console.log();
+    const projectsPath = path.join(repoPath, 'projects');
+    for (const dirEnt of fs.readdirSync(projectsPath, { withFileTypes: true })) {
+      const webPath = getWebPath(projectsPath, dirEnt);
+      if (webPath === null) continue;
+      const url = 'https://rauschma.github.io/learning-web-dev-code/projects/' + webPath;
+      console.log(
+        `* [▲${webPath}▲](${url})`.replaceAll('▲', '`')
+      );
+    }
+  }
 }
+
+main();

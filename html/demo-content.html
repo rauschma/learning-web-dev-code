@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Demo: HTML content</title>
+  <style>
+    .vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    html {
+      margin: 2rem auto 2rem auto;
+      max-width: 40rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Demo: HTML content</h1>
+
+  <h2 id="character-references">Character references</h2>
+
+  <ul>
+    <li>Ampersand: &amp;</li>
+    <li>Less than: &lt;</li>
+    <li>Greater than: &gt;</li>
+    <li>Quote: &quot;</li>
+    <li>Apostrophe: &apos;</li>
+    <li>Non-breaking space: Figure&nbsp;3</li>
+    <li>Em space: 1.5.2.&emsp;Second subsection</li>
+  </ul>
+
+  <h2 id="comments">Comments</h2>
+
+  <!-- You don’t see this on the web page -->
+
+  <h2 id="italics">Text that is usually rendered as italics</h2>
+
+  <p>Now <em>that</em> is a good idea.</p>
+  <p>A <dfn>bicycle</dfn> is a vehicle with two wheels.</p>
+  <p>I enjoyed <cite>His dark materials</cite>.</p>
+  <p>She said <i lang="fr">au revoir</i>.</p>
+
+  <h2 id="bold">Text that is usually rendered as bold</h2>
+
+  <p><strong>Important:</strong> Close the door!</p>
+  <p>I like <b>apples</b> and <b>bananas</b>.</p>
+
+
+  <h2 id="hyperlinks">Hyperlinks</h2>
+
+  <div class="vertical">
+    <a href="https://example.com">Link to another website</a>
+    <a href="demo-controls.html">Link to page of current website</a>
+    <a href="#tables">Link to ID of current page</a>
+  </div>
+
+  <h2 id="images">Images</h2>
+
+  <figure>
+    <img
+      src="demo-content/html5-logo.svg"
+      width="128" height="128"
+      alt="HTML5 logo: “HTML” above a shield with a 5"
+    >
+    <figcaption>
+      Source: <a href="https://www.w3.org/html/logo/">W3C</a>
+    </figcaption>
+  </figure>
+
+  <h2 id="displaying-code">Displaying code: <code>&lt;code&gt;</code> and <code>&lt;pre&gt;</code></h2>
+
+  <p>The <code>&lt;img&gt;</code> tag.</p>
+
+  <pre>
+  &lt;strong&gt;important&lt;strong/&gt;
+  </pre>
+
+  <h2 id="paragraphs-and-line-breaks">Paragraphs and line breaks</h2>
+
+  <p>
+    This is a line break<br>
+    inside the first paragraph.
+  </p>
+  <p>
+    Second paragraph
+    with two lines.
+  </p>
+
+  <h2 id="generic-containers">Generic containers: <code>&lt;span&gt;</code> and <code>&lt;div&gt;</code></h2>
+
+  <p><span>Inline content goes here.</span></p>
+
+  <div>
+    Block content goes here.
+  </div>
+
+  <h2 id="block-quotations">Block quotations</h2>
+
+  <blockquote>
+    <p>
+      For myself, I am an optimist — it does not seem to be much use
+      being anything else.
+    </p>
+  </blockquote>
+  <div>
+  — Winston Churchill
+  </div>
+
+  <h2 id="lists">Lists</h2>
+
+  <ol>
+    <li>First take these steps:
+      <ul>
+        <li>Step 1a</li>
+        <li>Step 1b</li>
+      </ul>
+    </li>
+    <li>Then take these steps:
+      <ul>
+        <li>Step 2a</li>
+        <li>Step 2b</li>
+      </ul>
+    </li>
+  </ol>
+
+  <h2 id="tables">Tables</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Acronym</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>WWW</td>
+        <td>World Wide Web</td>
+      </tr>
+      <tr>
+        <td>HTML</td>
+        <td>Hypertext Markup Language</td>
+      </tr>
+      <tr>
+        <td>HTTP</td>
+        <td>Hypertext Transfer Protocol</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

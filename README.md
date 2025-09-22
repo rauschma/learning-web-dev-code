@@ -4,6 +4,11 @@
 
 **How to download this repository:** Click on the green “Code” button and select the command “Download ZIP” at the bottom.
 
+## Visit the HTML pages online
+
+* [`demo-content.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-content.html)
+* [`demo-controls.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-controls.html)
+
 ## Run the client-side projects online
 
 * [`block-browser.html`](https://rauschma.github.io/learning-web-dev-code/projects/block-browser.html)
