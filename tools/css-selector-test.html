@@ -4,9 +4,20 @@
   <meta charset="UTF-8">
   <title>CSS selector test</title>
   <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     html {
       margin: 2rem auto 2rem auto;
       max-width: 45rem;
+    }
+    #html-rendered {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      background-color: hsl(0 0 90);
+      padding: 0.25rem 1rem 0.25rem 1rem;
+      border-radius: 0.5rem;
     }
     textarea {
       font-family: monospace;
