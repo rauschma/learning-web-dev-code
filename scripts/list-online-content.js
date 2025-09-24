@@ -65,19 +65,8 @@ function main() {
   const args = process.argv.slice(2);
   const repoPath = args[0] ?? process.cwd();
 
-  {
-    console.log('## Visit the HTML pages online');
-    console.log();
-    const projectsPath = path.join(repoPath, 'html');
-    for (const dirEnt of fs.readdirSync(projectsPath, { withFileTypes: true })) {
-      if (!dirEnt.name.endsWith('.html')) continue;
-
-      const url = 'https://rauschma.github.io/learning-web-dev-code/html/' + dirEnt.name;
-      console.log(
-        `* [▲${dirEnt.name}▲](${url})`.replaceAll('▲', '`')
-      );
-    }
-  }
+  listHtmlFiles('tools', 'Run tools online');
+  listHtmlFiles('html', 'Visit the HTML pages online');
   {
     console.log();
     console.log('## Run the client-side projects online');
@@ -89,6 +78,21 @@ function main() {
       const url = 'https://rauschma.github.io/learning-web-dev-code/projects/' + webPath;
       console.log(
         `* [▲${webPath}▲](${url})`.replaceAll('▲', '`')
+      );
+    }
+  }
+
+  function listHtmlFiles(dirName, heading) {
+    console.log();
+    console.log('## ' + heading);
+    console.log();
+    const projectsPath = path.join(repoPath, dirName);
+    for (const dirEnt of fs.readdirSync(projectsPath, { withFileTypes: true })) {
+      if (!dirEnt.name.endsWith('.html')) continue;
+
+      const url = `https://rauschma.github.io/learning-web-dev-code/${dirName}/${dirEnt.name}`;
+      console.log(
+        `* [▲${dirEnt.name}▲](${url})`.replaceAll('▲', '`')
       );
     }
   }

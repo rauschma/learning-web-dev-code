@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSS selector test</title>
+  <style>
+    html {
+      margin: 2rem auto 2rem auto;
+      max-width: 45rem;
+    }
+    textarea {
+      font-family: monospace;
+    }
+  </style>
+  <style id="computed-style"></style>
+</head>
+<body>
+  <h1>CSS selector test</h1>
+  <div>
+    <textarea id="html-source" cols="80" rows="15"></textarea>
+  </div>
+  <div>
+    <a href="" id="render-html">Render below</a>
+    &nbsp;|&nbsp;
+    <a href="" id="save-input">Save to URL</a>
+    &nbsp;|&nbsp;
+    <a href="" id="reset-input">Reset</a>
+  </div>
+  <div id="html-rendered"></div>
+  <hr>
+  <p>
+    <label>
+      CSS selector:
+      <input type="text" id="css-selector">
+    </label>
+  </p>
+  <pre id="selected-tags"></pre>
+
+<template id="default-html-template">
+<p>Web development resources:</p>
+<ul id="resources">
+  <li>JavaScript: <a href="https://exploringjs.com/js/">“Exploring JavaScript”</a></li>
+  <li>HTML, CSS, JavaScript: <a href="https://developer.mozilla.org/en-US/">“MDN Web Docs”</a></li>
+</ul>
+
+<nav class="navigation">
+  <p>Navigation:</p>
+  <ul id="locations">
+    <li><a href="https://2ality.com/2025/08/learning-web-dev-toc.html">TOC</a></li>
+    <li><a href="https://github.com/rauschma/learning-web-dev-code/">Repo</a></li>
+  </ul>
+</nav>
+</template>
+
+  <script type="module">
+    const defaultHtmlTemplate = document.querySelector('#default-html-template');
+    const defaultHtml = documentFragmentToHtml(defaultHtmlTemplate.content).trimStart();
+
+    restoreInputFromUrl();
+    document.querySelector('#css-selector').addEventListener(
+      'change',
+      (event) => {
+        displaySelector();
+      }
+    );
+    document.querySelector('#render-html').addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault();
+        renderHtml();
+      }
+    );
+    document.querySelector('#reset-input').addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault();
+        resetUrlAndInput();
+      }
+    );
+    document.querySelector('#save-input').addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault();
+        saveInputToUrl();
+      }
+    );
+
+    //========== Selector ==========
+
+    function displaySelector() {
+      const userSelector = document.querySelector('#css-selector').value.trim();
+      // Make sure the selector only matches inside the rendered HTML (as
+      // provided by the user)
+      const internalSelector = `#html-rendered ${userSelector}`;
+      let css = '';
+      let tags = [];
+      if (userSelector.length > 0) {
+        css = `
+          ${internalSelector} {
+            background-color: yellow;
+          }
+        `;
+        tags = getTagsForSelector(internalSelector);
+      }
+      document.querySelector('#computed-style').innerHTML = css;
+      document.querySelector('#selected-tags').innerHTML = escapeHtml(tags.join('\n'));
+    }
+
+    function getTagsForSelector(selector) {
+      return Array.from(
+        document.querySelectorAll(selector),
+        (el) => {
+          const html = el.outerHTML;
+          const gtIndex = html.indexOf('>');
+          return html.slice(0, gtIndex + 1);
+        }
+      );
+    }
+
+    //========== Save and restore to/from URL ==========
+
+    function saveInputToUrl() {
+      const newLocation = new URL(location);
+      newLocation.search = '';
+      const selector = document.querySelector('#css-selector').value;
+      newLocation.searchParams.set('selector', selector);
+      const html = document.querySelector('#html-source').value;
+      if (html !== defaultHtml) {
+        newLocation.searchParams.set('html', html);
+      }
+      history.pushState({}, '', newLocation);
+    }
+
+    function resetUrlAndInput() {
+      document.querySelector('#html-source').value = defaultHtml;
+      document.querySelector('#css-selector').value = '';
+      const newLocation = new URL(location);
+      newLocation.search = '';
+      history.pushState({}, '', newLocation);
+      renderHtml();
+      displaySelector();
+    }
+
+    function restoreInputFromUrl() {
+      const params = new URL(location).searchParams;
+
+      const html = params.get('html') ?? defaultHtml;
+      document.querySelector('#html-source').value = html;
+
+      const selector = params.get('selector') ?? '';
+      document.querySelector('#css-selector').value = selector;
+
+      renderHtml();
+      displaySelector();
+    }
+
+    //========== HTML ==========
+
+    function renderHtml() {
+      const html = document.querySelector('#html-source').value;
+      document.querySelector('#html-rendered').innerHTML = html;
+    }
+
+    //========== Helper functions ==========
+
+    function documentFragmentToHtml(fragment) {
+      const div = document.createElement('div');
+      div.appendChild(fragment.cloneNode(true));
+      return div.innerHTML;
+    }
+
+    function escapeHtml(plainText) {
+      return plainText
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll(`'`, '&apos;')
+      ;
+    }
+  </script>
+</body>
+</html>

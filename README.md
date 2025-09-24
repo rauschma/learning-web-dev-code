@@ -4,6 +4,10 @@
 
 **How to download this repository:** Click on the green “Code” button and select the command “Download ZIP” at the bottom.
 
+## Run tools online
+
+* [`css-selector-test.html`](https://rauschma.github.io/learning-web-dev-code/tools/css-selector-test.html)
+
 ## Visit the HTML pages online
 
 * [`demo-content.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-content.html)
