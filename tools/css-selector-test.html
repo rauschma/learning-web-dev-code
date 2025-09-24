@@ -22,6 +22,16 @@
     textarea {
       font-family: monospace;
     }
+    #examples {
+      margin-top: -0.5rem;
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+      font-size: small;
+      a {
+        font-family: monospace;
+      }
+    }
   </style>
   <style id="computed-style"></style>
 </head>
@@ -45,35 +55,38 @@
       <input type="text" id="css-selector">
     </label>
   </p>
+  <div id="examples">
+    Examples:
+    <a href="">p</a>
+    <a href="">li</a>
+    <a href="">.first</a>
+    <a href="">ul</a>
+    <a href="">ul.resources</a>
+    <a href="">.resources li</a>
+    <a href="">nav li</a>
+  </div>
   <pre id="selected-tags"></pre>
 
 <template id="default-html-template">
 <p>Web development resources:</p>
-<ul id="resources">
-  <li>JavaScript: <a href="https://exploringjs.com/js/">“Exploring JavaScript”</a></li>
+<ul class="resources">
+  <li class="first">JavaScript: <a href="https://exploringjs.com/js/">“Exploring JavaScript”</a></li>
   <li>HTML, CSS, JavaScript: <a href="https://developer.mozilla.org/en-US/">“MDN Web Docs”</a></li>
 </ul>
 
-<nav class="navigation">
+<nav id="navigation">
   <p>Navigation:</p>
-  <ul id="locations">
-    <li><a href="https://2ality.com/2025/08/learning-web-dev-toc.html">TOC</a></li>
+  <ul>
+    <li class="first"><a href="https://2ality.com/2025/08/learning-web-dev-toc.html">TOC</a></li>
     <li><a href="https://github.com/rauschma/learning-web-dev-code/">Repo</a></li>
   </ul>
 </nav>
 </template>
-
   <script type="module">
     const defaultHtmlTemplate = document.querySelector('#default-html-template');
     const defaultHtml = documentFragmentToHtml(defaultHtmlTemplate.content).trimStart();
-
     restoreInputFromUrl();
-    document.querySelector('#css-selector').addEventListener(
-      'change',
-      (event) => {
-        displaySelector();
-      }
-    );
+
     document.querySelector('#render-html').addEventListener(
       'click',
       (event) => {
@@ -95,6 +108,22 @@
         saveInputToUrl();
       }
     );
+    document.querySelector('#css-selector').addEventListener(
+      'change',
+      (event) => {
+        displaySelector();
+      }
+    );
+    for (const link of document.querySelectorAll('#examples a')) {
+      link.addEventListener(
+        'click',
+        (event) => {
+          event.preventDefault();
+          document.querySelector('#css-selector').value = event.target.innerText;
+          displaySelector();
+        }
+      );
+    }
 
     //========== Selector ==========
 
