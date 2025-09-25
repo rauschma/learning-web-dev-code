@@ -12,6 +12,7 @@
       margin: 2rem auto 2rem auto;
       max-width: 45rem;
     }
+
     #html-rendered {
       margin-top: 1rem;
       margin-bottom: 1rem;
@@ -19,18 +20,26 @@
       padding: 0.25rem 1rem 0.25rem 1rem;
       border-radius: 0.5rem;
     }
+
     textarea {
       font-family: monospace;
     }
+
     #examples {
       margin-top: -0.5rem;
       display: flex;
       flex-direction: row;
       gap: 0.75rem;
       font-size: small;
+
       a {
         font-family: monospace;
       }
+    }
+
+    #error-message {
+      color: red;
+      font-weight: bold;
     }
   </style>
   <style id="computed-style"></style>
@@ -60,31 +69,36 @@
     <a href="">p</a>
     <a href="">li</a>
     <a href="">.first</a>
-    <a href="">ul</a>
-    <a href="">ul.resources</a>
-    <a href="">.resources li</a>
-    <a href="">nav li</a>
+    <a href="">#navigation</a>
+    <a href="">*</a>
+    <a href="">li.first</a>
   </div>
+  <p id="error-message"></p>
   <pre id="selected-tags"></pre>
 
-<template id="default-html-template">
-<p>Web development resources:</p>
-<ul class="resources">
-  <li class="first">JavaScript: <a href="https://exploringjs.com/js/">“Exploring JavaScript”</a></li>
-  <li>HTML, CSS, JavaScript: <a href="https://developer.mozilla.org/en-US/">“MDN Web Docs”</a></li>
-</ul>
+  <template id="default-html-template">
+    <p class="first">Web development resources:</p>
+    <ul class="resources first">
+      <li class="first">JavaScript: <a href="https://exploringjs.com/js/">“Exploring JavaScript”</a></li>
+      <li>HTML, CSS, JavaScript: <a href="https://developer.mozilla.org/en-US/">“MDN Web Docs”</a></li>
+      <li>Search the web for more resources!</li>
+    </ul>
 
-<nav id="navigation">
-  <p>Navigation:</p>
-  <ul>
-    <li class="first"><a href="https://2ality.com/2025/08/learning-web-dev-toc.html">TOC</a></li>
-    <li><a href="https://github.com/rauschma/learning-web-dev-code/">Repo</a></li>
-  </ul>
-</nav>
-</template>
+    <nav id="navigation">
+      <p>Navigation:</p>
+      <ul>
+        <li class="first"><a href="https://2ality.com/2025/08/learning-web-dev-toc.html">TOC</a></li>
+        <li><a href="https://github.com/rauschma/learning-web-dev-code/">Repo</a></li>
+      </ul>
+    </nav>
+  </template>
+  
   <script type="module">
+    const selectorPrefix = '#html-rendered ';
     const defaultHtmlTemplate = document.querySelector('#default-html-template');
-    const defaultHtml = documentFragmentToHtml(defaultHtmlTemplate.content).trimStart();
+    const defaultHtml = dedentTemplateHtml(
+      documentFragmentToHtml(defaultHtmlTemplate.content)
+    );
     restoreInputFromUrl();
 
     document.querySelector('#render-html').addEventListener(
@@ -129,21 +143,33 @@
 
     function displaySelector() {
       const userSelector = document.querySelector('#css-selector').value.trim();
-      // Make sure the selector only matches inside the rendered HTML (as
-      // provided by the user)
-      const internalSelector = `#html-rendered ${userSelector}`;
       let css = '';
       let tags = [];
+      let errorMessage = '';
       if (userSelector.length > 0) {
+        // Make sure the selector only matches inside the rendered HTML (as
+        // provided by the user)
+        const internalSelector = userSelector
+          .split(/\s*,\s*/)
+          .map(sel => selectorPrefix + sel)
+          .join(', ')
+          ;
         css = `
           ${internalSelector} {
             background-color: yellow;
           }
         `;
-        tags = getTagsForSelector(internalSelector);
+        try {
+          tags = getTagsForSelector(internalSelector);
+        } catch (err) {
+          css = '';
+          tags = [];
+          errorMessage = String(err).replaceAll(selectorPrefix, '');
+        }
       }
       document.querySelector('#computed-style').innerHTML = css;
-      document.querySelector('#selected-tags').innerHTML = escapeHtml(tags.join('\n'));
+      document.querySelector('#selected-tags').innerText = tags.join('\n');
+      document.querySelector('#error-message').innerText = errorMessage;
     }
 
     function getTagsForSelector(selector) {
@@ -216,7 +242,17 @@
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll(`'`, '&apos;')
-      ;
+        ;
+    }
+
+    function dedentTemplateHtml(text) {
+      // Starts with a line break!
+      const prefixMatch = /^(\r?\n)[ \t]*/v.exec(text);
+      if (prefixMatch === null) {
+        return text;
+      }
+      const [prefix, lineBreak] = prefixMatch;
+      return text.trim().replaceAll(prefix, lineBreak);
     }
   </script>
 </body>
