@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSS basics</title>
+  <style>
+    @font-face {
+      font-family: "DejaVu Sans";
+      src: url("fonts/DejaVuSans.ttf");
+    }
+    html {
+      font-family: "DejaVu Sans";
+      margin: 1rem auto 1rem auto;
+      max-width: 40rem;
+    }
+    .rendered-svg {
+      margin-top: 0.5rem;
+    }
+    .rendered-svg summary {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS basics</h1>
+
+  <h2><code>box-sizing</code></h2>
+  <section id="css-box-sizing">
+    <style>
+      .outer {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        width: 200px;
+        border: thin dotted black;
+      }
+      .inner {
+        width: 100%;
+        background: hsl(0 0 85%);
+      }
+      .padded {
+        padding: 5px;
+        border: 5px solid black;
+      }
+    </style>
+    <div class="outer">
+      <div class="inner">
+        box-sizing: content-box
+      </div>
+      <div class="inner padded" style="box-sizing: content-box">
+        box-sizing: content-box
+      </div>
+      <div class="inner padded" style="box-sizing: border-box">
+        box-sizing: border-box
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    import HtmlToSvg from 'https://esm.run/@tooooools/html-to-svg';
+    const renderer = new HtmlToSvg({
+      debug: false,
+      ignore: '.html-only, video', // CSS selector
+      fonts: [
+        { family: 'DejaVu Sans', url: 'fonts/DejaVuSans.ttf' },
+        // { family: 'Roboto', url: '/fonts/roboto-bold.otf', weight: '600' },
+        // { family: 'Roboto', url: '/fonts/roboto-regular-italic.otf', style: 'italic' }
+      ]
+    });
+    // Preload the fonts inside the renderer
+    await renderer.preload();
+
+    const renderOptions = { 
+      rasterizeNestedSVG: false, // Don’t convert <svg> to <image>
+      splitText: false // Don’t force text fragments to be renderered letter by letter
+    };
+    const transform = async (from, to) => to;
+
+    for (const sect of document.querySelectorAll('section')) {
+      const svgFilename = sect.id + '.svg';
+      const svg = await renderer.render(sect, renderOptions, transform);
+
+      const details = document.createElement('details');
+      details.className = 'rendered-svg';
+      const summary = document.createElement('summary');
+      details.appendChild(summary);
+      details.appendChild(svg);
+
+      const link = document.createElement('a');
+      link.insertAdjacentText('beforeend', 'Download ' + svgFilename);
+      const fileBlob = new Blob([svg.outerHTML], { type: 'text/plain' });
+      link.href = URL.createObjectURL(fileBlob);
+      link.download = svgFilename;
+
+      summary.appendChild(link);
+      sect.appendChild(details);
+    }
+
+    renderer.destroy();
+  </script>
+</body>
+</html>

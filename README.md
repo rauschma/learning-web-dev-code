@@ -10,6 +10,7 @@
 
 ## Visit the HTML pages online
 
+* [`css-basics.html`](https://rauschma.github.io/learning-web-dev-code/html/css-basics.html)
 * [`demo-content.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-content.html)
 * [`demo-controls.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-controls.html)
 
