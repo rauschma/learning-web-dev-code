@@ -78,17 +78,19 @@
 
     for (const sect of document.querySelectorAll('section')) {
       const svgFilename = sect.id + '.svg';
-      const svg = await renderer.render(sect, renderOptions, transform);
+      const svgElement = await renderer.render(sect, renderOptions, transform);
 
       const details = document.createElement('details');
       details.className = 'rendered-svg';
       const summary = document.createElement('summary');
       details.appendChild(summary);
-      details.appendChild(svg);
+      details.appendChild(svgElement);
 
       const link = document.createElement('a');
       link.insertAdjacentText('beforeend', 'Download ' + svgFilename);
-      const fileBlob = new Blob([svg.outerHTML], { type: 'text/plain' });
+      const fileBlob = new Blob(
+        [svgElement.outerHTML], { type: 'text/plain' }
+      );
       link.href = URL.createObjectURL(fileBlob);
       link.download = svgFilename;
 
