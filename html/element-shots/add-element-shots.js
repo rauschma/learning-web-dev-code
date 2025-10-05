@@ -6,8 +6,11 @@
  *   - To name the downloadable files
  *   - To restrict the CSS to this particular section:
  *     ```css
- *     #italic-oblique + section
+ *     #my-heading-id + section
  *     ```
+ *
+ * Note: If you don’t set a background-color via CSS then the background of
+ * the images is going to be transparent.
  */
 
 import * as htmlToImage from 'https://esm.run/html-to-image';
@@ -38,7 +41,7 @@ async function main() {
       );
       css.push(
         `body:has(#${checkboxId}:checked) #${figureId} {`,
-        `  display: block`,
+        `  display: block;`,
         `}`,
       );
     }
