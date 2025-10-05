@@ -3,44 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>CSS basics</title>
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="element-shots/element-shots.css">
   <style>
-    @font-face {
-      font-family: "DejaVu Sans";
-      src: url("fonts/DejaVuSans.ttf");
-    }
-    html {
-      font-family: "DejaVu Sans";
-      margin: 1rem auto 1rem auto;
-      max-width: 40rem;
-    }
-    .rendered-svg {
-      margin-top: 0.5rem;
-    }
-    .rendered-svg summary {
-      margin-bottom: 0.5rem;
+    section {
+      width: fit-content;
     }
   </style>
 </head>
 <body>
+  <!--Instructions: see JS file referenced at the end-->
+
   <h1>CSS basics</h1>
 
-  <h2><code>box-sizing</code></h2>
-  <section id="css-box-sizing">
+  <!-- ======================================== -->
+
+  <h2 id="css-inheritance">Inheritance</h2>
+  <section>
     <style>
-      .outer {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-        width: 200px;
-        border: thin dotted black;
+      #css-inheritance + section {
+        div {
+          background-color: gainsboro;
+        }
+        .outer {
+          width: 190px;
+          padding: 10px;
+          border: thin solid black;
+
+          font-size: 32px;
+          background-color: white;
+        }
+        .inner {
+          padding: 10px;
+        }
       }
-      .inner {
-        width: 100%;
-        background: hsl(0 0 85%);
-      }
-      .padded {
-        padding: 5px;
-        border: 5px solid black;
+    </style>
+    Top level
+    <div class="outer">
+      Outer text
+      <div class="inner">
+        Inner text
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="box-sizing"><code>box-sizing</code></h2>
+  <section>
+    <style>
+      #box-sizing + section {
+        .outer {
+          margin-right: 20px;
+          display: flex;
+          gap: 10px;
+          flex-direction: column;
+          width: 200px;
+          border: thin dotted black;
+        }
+        .inner {
+          width: 100%;
+          background: hsl(0 0 85%);
+        }
+        .padded {
+          padding: 5px;
+          border: 5px solid black;
+        }
       }
     </style>
     <div class="outer">
@@ -56,49 +84,153 @@
     </div>
   </section>
 
-  <script type="module">
-    import HtmlToSvg from 'https://esm.run/@tooooools/html-to-svg';
-    const renderer = new HtmlToSvg({
-      debug: false,
-      ignore: '.html-only, video', // CSS selector
-      fonts: [
-        { family: 'DejaVu Sans', url: 'fonts/DejaVuSans.ttf' },
-        // { family: 'Roboto', url: '/fonts/roboto-bold.otf', weight: '600' },
-        // { family: 'Roboto', url: '/fonts/roboto-regular-italic.otf', style: 'italic' }
-      ]
-    });
-    // Preload the fonts inside the renderer
-    await renderer.preload();
+  <!-- ======================================== -->
 
-    const renderOptions = { 
-      rasterizeNestedSVG: false, // Don’t convert <svg> to <image>
-      splitText: false // Don’t force text fragments to be renderered letter by letter
-    };
-    const transform = async (from, to) => to;
+  <h2 id="color-background-color"><code>color</code> and <code>background-color</code></h2>
+  <section>
+    <style>
+      #color-background-color + section {
+        color: white;
+        background-color: black;
+        font-weight: bold;
 
-    for (const sect of document.querySelectorAll('section')) {
-      const svgFilename = sect.id + '.svg';
-      const svgElement = await renderer.render(sect, renderOptions, transform);
+        padding: 1em 1em;
+        width: 10.5em;
+      }
+    </style>
+    White text on black background
+  </section>
 
-      const details = document.createElement('details');
-      details.className = 'rendered-svg';
-      const summary = document.createElement('summary');
-      details.appendChild(summary);
-      details.appendChild(svgElement);
+  <!-- ======================================== -->
 
-      const link = document.createElement('a');
-      link.insertAdjacentText('beforeend', 'Download ' + svgFilename);
-      const fileBlob = new Blob(
-        [svgElement.outerHTML], { type: 'text/plain' }
-      );
-      link.href = URL.createObjectURL(fileBlob);
-      link.download = svgFilename;
+  <h2 id="serif-sans">Fonts: serif vs. sans-serif</h2>
+  <section>
+    <style>
+      #serif-sans + section {
+        ul {
+          margin: 0;
+        }
+      }
+    </style>
+    <ul>
+      <li style="font-family: 'DejaVu Serif'">DejaVu Serif</li>
+      <li style="font-family: 'DejaVu Sans'">DejaVu Sans</li>
+    </ul>
+  </section>
 
-      summary.appendChild(link);
-      sect.appendChild(details);
-    }
+  <!-- ======================================== -->
 
-    renderer.destroy();
-  </script>
+  <h2 id="italic-oblique"><code>italic</code> vs. <code>oblique</code></h2>
+  <section>
+    <style>
+      #italic-oblique + section {
+        ul {
+          margin: 0;
+        }
+      }
+    </style>
+    <div style="font-family: 'DejaVu Serif'">
+      <ul>
+        <li style="font-style: normal">Serif – normal: gaffe</li>
+        <li style="font-style: italic">Serif – italic: gaffe</li>
+      </ul>
+    </div>
+    <div style="font-family: 'DejaVu Sans'">
+      <ul>
+        <li style="font-style: normal">Sans – normal: gaffe</li>
+        <li style="font-style: oblique">Sans – oblique: gaffe</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="text-decoration"><code>text-decoration</code></h2>
+  <section>
+    <style>
+      #text-decoration + section {
+        li + li {
+          margin-top: 0.5rem;
+        }
+        .underline li {
+          text-decoration-line: underline;
+        }
+      }
+    </style>
+    Text decoration line:
+    <ul>
+      <li style="text-decoration-line: none">Text decoration line is none</li>
+      <li style="text-decoration-line: underline">Text decoration line is underline</li>
+      <li style="text-decoration-line: line-through">Text decoration line is line-through</li>
+    </ul>
+    Text decoration style:
+    <ul class="underline">
+      <li style="text-decoration-style: solid">Text decoration style is solid</li>
+      <li style="text-decoration-style: double">Text decoration style is double</li>
+      <li style="text-decoration-style: dotted">Text decoration style is dotted</li>
+      <li style="text-decoration-style: dashed">Text decoration style is dashed</li>
+      <li style="text-decoration-style: wavy">Text decoration style is wavy</li>
+    </ul>
+    Text underline offset:
+    <ul class="underline" style="padding-bottom: 0.4em">
+      <li style="text-underline-offset: 0.1em">Text underline offset: 0.1em</li>
+      <li style="text-underline-offset: 0.2em">Text underline offset: 0.2em</li>
+      <li style="text-underline-offset: 0.4em">Text underline offset: 0.4em</li>
+    </ul>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="border-style"><code>border-style</code></h2>
+  <section class="png">
+    <style>
+      #border-style + section {
+        width: min-content;
+
+        .container {
+          display: grid;
+          grid-auto-flow: row;
+          grid-gap: 10px;
+          grid-template-columns: repeat(2, min-content);
+        }
+        .container div {
+          width: 60px;
+          height: 20px;
+          padding: 5px;
+          border-width: 10px;
+        }
+      }
+    </style>
+    <div class="container">
+      <div style="border-style: solid">
+        solid
+      </div>
+      <div style="border-style: double">
+        double
+      </div>
+      <div style="border-style: dotted">
+        dotted
+      </div>
+      <div style="border-style: dashed">
+        dashed
+      </div>
+      <div style="border-style: groove">
+        groove
+      </div>
+      <div style="border-style: ridge">
+        ridge
+      </div>
+      <div style="border-style: inset">
+        inset
+      </div>
+      <div style="border-style: outset">
+        outset
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <script type="module" src="element-shots/add-element-shots.js"></script>
 </body>
 </html>
