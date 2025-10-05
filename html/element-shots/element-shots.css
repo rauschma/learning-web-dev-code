@@ -15,9 +15,12 @@ html {
   align-items: baseline;
 }
 
-figure.element-shot {
+.element-shot {
   display: none;
-  border: solid thin hsl(0 0 50%);
+
+  img, canvas {
+    border: solid thin hsl(0 0 50%);
+  }
 }
 
 /********** Headings **********/
