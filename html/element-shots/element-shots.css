@@ -11,11 +11,13 @@ html {
 .download-links {
   margin-top: 1em;
   display: flex;
-  gap: 1em;
+  gap: 0.75rem;
+  align-items: baseline;
 }
 
 figure.element-shot {
   display: none;
+  border: solid thin hsl(0 0 50%);
 }
 
 /********** Headings **********/

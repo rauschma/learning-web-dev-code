@@ -21,6 +21,8 @@ async function main() {
   for (const [index, { section, sectionId }] of collectSections().entries()) {
     const downloadLinksDiv = document.createElement('div');
     downloadLinksDiv.className = 'download-links';
+    downloadLinksDiv.insertAdjacentText('afterbegin', `Download:`);
+
     const figuresDiv = document.createElement('div');
     for (const func of [createSvgShot, createPngShot]) {
       const { fileType, downloadHref, img } = await func(section);
@@ -86,13 +88,13 @@ function createDownloadLink(checkboxId, href, filename) {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.id = checkboxId;
-    checkbox.title = 'Click checkbox to display file below';
+    checkbox.title = `Click to show image below`;
     label.append(checkbox);
     label.insertAdjacentText('beforeend', ' ');
   }
   {
     const link = document.createElement('a');
-    link.title = 'Click link to download file';
+    link.title = `Click to download image`;
     link.href = href;
     link.download = filename;
     link.insertAdjacentHTML('afterbegin', `<code>${filename}</code>`);
