@@ -13,7 +13,7 @@
 }
 
 html {
-  margin: 1rem auto 1rem auto;
+  margin: 2rem auto; /* vertical horizontal */
   max-width: 35rem;
 }
 
