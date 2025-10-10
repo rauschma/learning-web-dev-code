@@ -38,8 +38,7 @@
         .inner {
           border: thin solid black;
 
-          margin-left: 80px;
-          width: 180px;
+          width: 200px;
           padding: 10px;
         }
       }
@@ -302,7 +301,7 @@
     <style>
       #nth-child + section {
         li:nth-child(2n+1) {
-          text-decoration: underline;
+          border-bottom: solid thin black;
         }
       }
     </style>
@@ -318,11 +317,12 @@
   <!-- ======================================== -->
 
   <h2 id="first-line"><code>::first-line</code></h2>
+  <!-- Neither Chrome nor Safari can handle ::first-line in SVG [2025-10-10] -->
   <section class="no-shot">
     <style>
       #first-line + section {
         p::first-line {
-          text-decoration: underline;
+          font-weight: bold;
         }
       }
     </style>

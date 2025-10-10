@@ -3,7 +3,7 @@ section {
   background-color: white; /* override default */
   width: fit-content;
 
-  & > :first-child {
+  & > :is(p:first-of-type, ul:first-of-type, ol:first-of-type) {
     margin-top: 0;
   }
 
