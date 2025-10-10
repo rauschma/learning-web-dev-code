@@ -6,6 +6,7 @@
 
 ## Run tools online
 
+* [`box-model-test.html`](https://rauschma.github.io/learning-web-dev-code/html/tools/box-model-test.html)
 * [`css-selector-test.html`](https://rauschma.github.io/learning-web-dev-code/html/tools/css-selector-test.html)
 * [`nth-child-test.html`](https://rauschma.github.io/learning-web-dev-code/html/tools/nth-child-test.html)
 

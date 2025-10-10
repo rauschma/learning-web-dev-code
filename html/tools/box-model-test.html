@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Box model test</title>
+  <style>
+    html {
+      box-sizing: content-box;
+      margin: 2rem auto; /* tb lr */
+      padding: 1rem;
+      min-width: 10rem;
+      max-width: 35rem;
+    }
+    .outer {
+      width: fit-content;
+      height: fit-content;
+      /* background-color: gray; */
+      /* Oddly, the inner top margin is ignored if outer doesn’t have a border */
+      border-color: gray;
+      border-width: 1px;
+      border-style: dashed;
+    }
+    textarea {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+    }
+  </style>
+  <style id="user-style"></style>
+</head>
+<body>
+  <h1>Box model test</h1>
+
+  <div style="font-size: small; color: gray;">
+    margin
+  </div>
+  <div class="outer">
+    <div class="inner">
+      This is the content.
+    </div>
+  </div>
+
+<textarea cols="60" rows="20" >
+box-sizing: border-box;
+background-clip: content-box;
+
+width: 150px;
+height: 150px;
+margin: 30px;
+padding: 20px;
+
+color: black; /* text */
+background-color: yellow;
+
+border-color: red;
+border-width: 5px;
+border-style: solid;
+</textarea>
+
+<label>
+  <input type="checkbox"> Log full style to console
+</label>
+
+<p>
+  Note: There is no simple way to color the padding: <code>background-color</code> normally affects everything inside the border.
+</p>
+<p>
+  As a work-around, we use the following CSS to restrict the background color to the content box:
+</p>
+<pre>
+  background-clip: content-box;
+</pre>
+
+  <script type="module">
+    const textarea = document.querySelector('textarea');
+    const userStyle = document.querySelector('#user-style');
+    const logToConsoleCheckbox = document.querySelector('input[type=checkbox]');
+
+    let timeoutId = undefined;
+
+    function restartTimeout() {
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(
+        () => {
+          timeoutId = undefined;
+          updateStyle();
+        },
+        1000
+      );
+    }
+
+    function updateStyle() {
+      let css = '';
+      css += '.inner {\n';
+      css += textarea.value;
+      css += '}\n';
+      
+      userStyle.innerText = css;
+      if (logToConsoleCheckbox.checked) {
+        console.log(css);
+      }
+    }
+
+    textarea.addEventListener(
+      'keyup',
+      () => {
+        restartTimeout();
+      }
+    );
+
+    updateStyle();
+  </script>
+</body>
+</html>
