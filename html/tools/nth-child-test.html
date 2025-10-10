@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>:nth-child() test</title>
+
+  <link rel="stylesheet" href="../shared/global.css">
+  <style id="user-style"></style>
+</head>
+<body>
+  <nav aria-label="breadcrumbs">
+    <a href="https://github.com/rauschma/learning-web-dev-code/">Web dev</a> ⏵
+  </nav>
+  <h1>:nth-child() test</h1>
+  <ol id="output">
+    <li>Hydrogen</li>
+    <li>Helium</li>
+    <li>Lithium</li>
+    <li>Beryllium</li>
+    <li>Boron</li>
+    <li>Carbon</li>
+    <li>Nitrogen</li>
+    <li>Oxygen</li>
+    <li>Fluorine</li>
+    <li>Neon</li>
+  </ol>
+  <p>
+    <label>
+      <code>li:nth-child(</code>
+      <input type="text" id="nth-child-input" size="8" placeholder="An+B">
+      <code>)</code>
+    </label>
+  </p>
+  <p>The pattern is <code>An+B</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child">documentation</a>). Examples:</p>
+  <ul>
+    <li><code>5</code></li>
+    <li><code>2n + 1</code></li>
+    <li><code>-n + 3</code></li>
+    <li><code>odd</code></li>
+    <li><code>even</code></li>
+  </ul>
+  <script type="module">
+    const userStyle = document.querySelector('#user-style');
+    document.querySelector('input')
+    .addEventListener(
+      'change',
+      (event) => {
+        userStyle.innerText = `#output li:nth-child(${event.target.value}) { background-color: yellow }`;
+      }
+    );
+  </script>
+</body>
+</html>

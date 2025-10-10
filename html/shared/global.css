@@ -1,0 +1,40 @@
+/********** CSS variables **********/
+
+:root {
+  --highlight-color: yellow;
+  --dimmed-text-color: hsl(0 0 65%);
+}
+
+/********** Global things **********/
+
+/* Better box-sizing default */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 1rem auto 1rem auto;
+  max-width: 35rem;
+}
+
+/********** Headings **********/
+
+h2 {
+  border-bottom: solid thin gray;
+}
+
+.heading-link {
+  text-decoration: none;
+  color: var(--dimmed-text-color);
+  font-size: 0.5em;
+}
+
+*:target {
+  background-color: var(--highlight-color);
+}
+
+/********** Various styles **********/
+
+nav[aria-label="breadcrumbs"] {
+  margin-bottom: -1rem;
+}

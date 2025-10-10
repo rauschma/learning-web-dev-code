@@ -3,37 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>CSS basics</title>
+  <link rel="stylesheet" href="shared/global.css">
+  <!-- Can’t use @import – due to library html-to-image (add-element-shots.js) -->
   <link rel="stylesheet" href="fonts/fonts.css">
-  <link rel="stylesheet" href="element-shots/element-shots.css">
+  <link rel="stylesheet" href="shared/element-shots.css">
   <style>
-    section {
-      width: fit-content;
+    html {
+      font-family: "DejaVu Sans";
     }
   </style>
 </head>
 <body>
   <!--Instructions: see JS file referenced at the end-->
 
+  <nav aria-label="breadcrumbs">
+    <a href="https://github.com/rauschma/learning-web-dev-code/">Web dev</a> ⏵
+  </nav>
   <h1>CSS basics</h1>
 
   <!-- ======================================== -->
 
-  <h2 id="css-inheritance">Inheritance</h2>
+  <h2 id="property-default-values">Property default values</h2>
   <section>
     <style>
-      #css-inheritance + section {
-        div {
-          background-color: gainsboro;
-        }
+      #property-default-values + section {
+        padding-right: 80px;
         .outer {
+          font-size: 32px;
+          background-color: gainsboro;
+
           width: 190px;
           padding: 10px;
-          border: thin solid black;
-
-          font-size: 32px;
-          background-color: white;
         }
         .inner {
+          border: thin solid black;
+
+          margin-left: 80px;
+          width: 180px;
           padding: 10px;
         }
       }
@@ -105,17 +111,16 @@
 
   <h2 id="serif-sans">Fonts: serif vs. sans-serif</h2>
   <section>
-    <style>
-      #serif-sans + section {
-        ul {
-          margin: 0;
-        }
-      }
-    </style>
-    <ul>
-      <li style="font-family: 'DejaVu Serif'">DejaVu Serif</li>
-      <li style="font-family: 'DejaVu Sans'">DejaVu Sans</li>
-    </ul>
+    <div style="font-family: 'DejaVu Serif'">DejaVu Serif</div>
+    <div style="font-family: 'DejaVu Sans'">DejaVu Sans</div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="proportional-monospaced">Fonts: proportional vs. monospaced</h2>
+  <section>
+    <div style="font-family: 'DejaVu Sans'">DejaVu Sans: 0O 1Il</div>
+    <div style="font-family: 'DejaVu Sans Mono'">DejaVu Sans Mono: 0O 1Il</div>
   </section>
 
   <!-- ======================================== -->
@@ -130,16 +135,12 @@
       }
     </style>
     <div style="font-family: 'DejaVu Serif'">
-      <ul>
-        <li style="font-style: normal">Serif – normal: gaffe</li>
-        <li style="font-style: italic">Serif – italic: gaffe</li>
-      </ul>
+      <div style="font-style: normal">Serif – normal: gaffe</div>
+      <div style="font-style: italic">Serif – italic: gaffe</div>
     </div>
     <div style="font-family: 'DejaVu Sans'">
-      <ul>
-        <li style="font-style: normal">Sans – normal: gaffe</li>
-        <li style="font-style: oblique">Sans – oblique: gaffe</li>
-      </ul>
+      <div style="font-style: normal">Sans – normal: gaffe</div>
+      <div style="font-style: oblique">Sans – oblique: gaffe</div>
     </div>
   </section>
 
@@ -171,8 +172,16 @@
       <li style="text-decoration-style: dashed">Text decoration style is dashed</li>
       <li style="text-decoration-style: wavy">Text decoration style is wavy</li>
     </ul>
+    Text decoration thickness:
+    <ul class="underline">
+      <li style="text-decoration-thickness: 1px">Text decoration thickness is 1px</li>
+      <li style="text-decoration-thickness: 4px">Text decoration thickness is 4px</li>
+      <li style="text-decoration-thickness: 0.05em">Text decoration thickness is 0.05em</li>
+      <li style="text-decoration-thickness: 0.2em">Text decoration thickness is 0.2em</li>
+    </ul>
     Text underline offset:
     <ul class="underline" style="padding-bottom: 0.4em">
+      <li>Text underline offset: default</li>
       <li style="text-underline-offset: 0.1em">Text underline offset: 0.1em</li>
       <li style="text-underline-offset: 0.2em">Text underline offset: 0.2em</li>
       <li style="text-underline-offset: 0.4em">Text underline offset: 0.4em</li>
@@ -192,8 +201,6 @@
           grid-template-columns: repeat(2, min-content);
         }
         .container div {
-          width: 60px;
-          height: 20px;
           padding: 5px;
           border-width: 10px;
         }
@@ -229,6 +236,133 @@
 
   <!-- ======================================== -->
 
-  <script type="module" src="element-shots/add-element-shots.js"></script>
+  <h2 id="text-align"><code>text-align</code></h2>
+  <section>
+    <p style="text-align: left">
+      <code>[left]</code>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p style="text-align: right">
+      <code>[right]</code>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p style="text-align: center">
+      <code>[center]</code>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p style="text-align: justify">
+      <code>[justify]</code>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="line-height-small-large"><code>line-height</code>: small vs. large</h2>
+  <section>
+    <style>
+      #line-height-small-large + section {
+        p {
+          line-height: 1.5;
+        }
+      }
+    </style>
+    <p style="font-size: 0.5rem">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p style="font-size: 1rem">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="line-height-narrow-wide"><code>line-height</code>: narrow vs. wide</h2>
+  <section>
+    <style>
+      #line-height-narrow-wide + section {
+        p {
+          line-height: 1;
+          font-size: 0.90rem;
+        }
+      }
+    </style>
+    <p style="width: 25%">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+    <p style="width: 100%">
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="nth-child"><code>:nth-child()</code></h2>
+  <section>
+    <style>
+      #nth-child + section {
+        li:nth-child(2n+1) {
+          text-decoration: underline;
+        }
+      }
+    </style>
+    <ul class="remove-list-whitespace">
+      <li>Hydrogen</li>
+      <li>Helium</li>
+      <li>Lithium</li>
+      <li>Beryllium</li>
+      <li>Boron</li>
+    </ul>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="first-line"><code>::first-line</code></h2>
+  <section class="no-shot">
+    <style>
+      #first-line + section {
+        p::first-line {
+          text-decoration: underline;
+        }
+      }
+    </style>
+    <p>
+      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    </p>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="hover"><code>:hover</code></h2>
+  <section class="no-shot">
+    <style>
+      #hover + section {
+        div {
+          padding: 15px;
+        }
+        div:hover {
+          background-color: green;
+        }
+        .square {
+          width: 100px;
+          height: 100px;
+          border: thin solid black;
+        }
+        .square:hover {
+          background-color: red;
+        }
+      }
+    </style>
+    <div>
+      <div class="square">
+        Hover with your cursor!
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <script type="module" src="shared/add-element-shots.js"></script>
+  <script type="module" src="shared/add-heading-links.js"></script>
 </body>
 </html>

@@ -6,13 +6,15 @@
 
 ## Run tools online
 
-* [`css-selector-test.html`](https://rauschma.github.io/learning-web-dev-code/tools/css-selector-test.html)
+* [`css-selector-test.html`](https://rauschma.github.io/learning-web-dev-code/html/tools/css-selector-test.html)
+* [`nth-child-test.html`](https://rauschma.github.io/learning-web-dev-code/html/tools/nth-child-test.html)
 
 ## Visit the HTML pages online
 
 * [`css-basics.html`](https://rauschma.github.io/learning-web-dev-code/html/css-basics.html)
-* [`demo-content.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-content.html)
-* [`demo-controls.html`](https://rauschma.github.io/learning-web-dev-code/html/demo-controls.html)
+* [`css-recipes.html`](https://rauschma.github.io/learning-web-dev-code/html/css-recipes.html)
+* [`html-content.html`](https://rauschma.github.io/learning-web-dev-code/html/html-content.html)
+* [`html-controls.html`](https://rauschma.github.io/learning-web-dev-code/html/html-controls.html)
 
 ## Run the client-side projects online
 

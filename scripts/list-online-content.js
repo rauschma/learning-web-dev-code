@@ -65,8 +65,8 @@ function main() {
   const args = process.argv.slice(2);
   const repoPath = args[0] ?? process.cwd();
 
-  listHtmlFiles('tools', 'Run tools online');
-  listHtmlFiles('html', 'Visit the HTML pages online');
+  listHtmlFiles('html/tools/', 'Run tools online');
+  listHtmlFiles('html/', 'Visit the HTML pages online');
   {
     console.log();
     console.log('## Run the client-side projects online');
@@ -83,6 +83,10 @@ function main() {
   }
 
   function listHtmlFiles(dirName, heading) {
+    if (!dirName.endsWith('/')) {
+      throw new Error('dirName must end with a slash!');
+    }
+
     console.log();
     console.log('## ' + heading);
     console.log();
@@ -90,7 +94,7 @@ function main() {
     for (const dirEnt of fs.readdirSync(projectsPath, { withFileTypes: true })) {
       if (!dirEnt.name.endsWith('.html')) continue;
 
-      const url = `https://rauschma.github.io/learning-web-dev-code/${dirName}/${dirEnt.name}`;
+      const url = `https://rauschma.github.io/learning-web-dev-code/${dirName}${dirEnt.name}`;
       console.log(
         `* [▲${dirEnt.name}▲](${url})`.replaceAll('▲', '`')
       );

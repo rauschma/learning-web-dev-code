@@ -8,6 +8,7 @@
  *     ```css
  *     #my-heading-id + section
  *     ```
+ * - If a section has class .no-shot then no element shots are added to it.
  *
  * Note: If you don’t set a background-color via CSS then the background of
  * the images is going to be transparent.
@@ -15,16 +16,24 @@
 
 import * as htmlToImage from 'https://esm.run/html-to-image';
 
-//========== main() ==========
+//========== addElementShots() ==========
 
-async function main() {
-  addHeadingLinks();
+async function addElementShots() {
+  const entries = [];
 
   const css = [];
   for (const [index, { section, sectionId }] of collectSections().entries()) {
-    const downloadLinksDiv = document.createElement('div');
-    downloadLinksDiv.className = 'download-links';
-    downloadLinksDiv.insertAdjacentText('afterbegin', `Download:`);
+    if (section.classList.contains('no-shot')) {
+      continue;
+    }
+
+    const downloadDiv = document.createElement('div');
+    downloadDiv.className = 'download-div';
+
+    downloadDiv.insertAdjacentHTML(
+      'beforeend',
+      `<span style="grid-area: download-text">Download:</span>`
+    );
 
     const figuresDiv = document.createElement('div');
     for (const func of [createSvgShot, createPngShot]) {
@@ -33,8 +42,9 @@ async function main() {
       const checkboxId = `${fileType}-checkbox${index}`;
       const figureId = `${fileType}-figure${index}`;
 
-      downloadLinksDiv.append(
-        createDownloadLink(checkboxId, downloadHref, filename)
+      downloadDiv.insertAdjacentElement(
+        'beforeend',
+        createDownloadLink(checkboxId, downloadHref, filename, fileType)
       );
       figuresDiv.append(
         createFigure(figureId, img)
@@ -45,14 +55,26 @@ async function main() {
         `}`,
       );
     }
-    // Reverse order!
-    section.insertAdjacentElement('afterend', figuresDiv);
-    section.insertAdjacentElement('afterend', downloadLinksDiv);
+    entries.push({
+      section,
+      elems: [
+        // In reverse order!
+        figuresDiv,
+        downloadDiv,
+      ],
+    });
   }
 
   const style = document.createElement('style');
   style.insertAdjacentText('afterbegin', css.join('\n'));
   document.body.append(style);
+
+  for (const {section, elems} of entries) {
+    for (const elem of elems) {
+      section.insertAdjacentElement('afterend', elem);
+    }
+    section.classList.add('has-element-shots');
+  }
 }
 
 function collectSections() {
@@ -85,8 +107,9 @@ function createFigure(figureId, img) {
   return figure;
 }
 
-function createDownloadLink(checkboxId, href, filename) {
+function createDownloadLink(checkboxId, href, filename, fileType) {
   const label = document.createElement('label');
+  label.style = `grid-area: download-link-${fileType}`;
   {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -136,15 +159,6 @@ async function createPngShot(section) {
 
 //========== Generic utilities ==========
 
-function addHeadingLinks() {
-  for (const h of document.querySelectorAll('h1, h2, h3, h4, h5, h6')) {
-    const id = h.id;
-    if (id) {
-      h.insertAdjacentHTML('beforeend', ` <a href="#${id}" class="heading-link">#</a>`);
-    }
-  }
-}
-
 // data:image/svg+xml;charset=utf-8,
 const reDataUrlPrefix = /^data:(?<mediaType>[^;]+);(?<encoding>base64|charset=utf-8),/v;
 
@@ -182,6 +196,6 @@ function canvasToBlob(canvas, type = 'image/png') {
   });
 }
 
-//========== Call main() ==========
+//========== Call addElementShots() ==========
 
-await main();
+await addElementShots();

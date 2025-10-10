@@ -1,0 +1,52 @@
+section {
+  /* PNGs work better if background color is not transparent */
+  background-color: white; /* override default */
+  width: fit-content;
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  /*
+   * Temporary bottom margin so that adding the shot UI elements does not
+   * change the layout
+   */
+  margin-bottom: 5.25rem;
+  &.has-element-shots {
+    margin-bottom: 0;
+  }
+  &.no-shot {
+    margin-bottom: 0;
+  }
+}
+
+.download-div {
+  height: 3rem;
+  margin-top: 1rem;
+
+  display: grid;
+  grid-template-areas:
+    "download-text download-link-svg"
+    ".             download-link-png";
+  grid-template-columns: min-content max-content;
+  align-items: baseline;
+  column-gap: 1rem;
+}
+
+.download-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.element-shot {
+  display: none;
+
+  img, canvas {
+    border: dashed thin hsl(0 0 50%);
+  }
+}
+
+.remove-list-whitespace {
+  margin-top: 0;
+  padding-left: 1.5em;
+}

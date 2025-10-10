@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSS recipes</title>
+  <link rel="stylesheet" href="shared/element-shots.css">
+  <style>
+    /********** CSS variables **********/
+
+    :root {
+      --highlight-color: yellow;
+      --dimmed-text-color: hsl(0 0 65%);
+      --table-border-color: hsl(0 0 65%);
+    }
+
+    /********** Better box-sizing default **********/
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /********** Centering content **********/
+
+    html {
+      box-sizing: content-box;
+      margin: 2rem auto; /* tb lr */
+      padding: 1rem;
+      min-width: 10rem;
+      max-width: 35rem;
+    }
+
+    /********** Styling links **********/
+
+    a.simple-underline {
+      color: inherit;
+      text-underline-offset: 0.1rem;
+    }
+
+    a.hover-underline {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /********** Styling headings **********/
+
+    h2 {
+      border-bottom: solid thin gray;
+    }
+
+    .heading-link {
+      text-decoration: none;
+      color: var(--dimmed-text-color);
+      font-size: 0.5em;
+    }
+
+    *:target {
+      background-color: var(--highlight-color);
+    }
+
+    /********** Formatting tables **********/
+
+    table.framed {
+      border-collapse: collapse;
+
+      td, th {
+        text-align: left;
+        vertical-align: text-top;
+
+        border: thin solid var(--table-border-color);
+        padding: 0.3rem 0.6rem; /* vertical horizontal */
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="breadcrumbs">
+    <a href="https://github.com/rauschma/learning-web-dev-code/">Web dev</a> ⏵
+  </nav>
+  <h1>CSS recipes</h1>
+
+  <h2 id="styling-links">
+    Styling links
+    <a href="#styling-links" class="heading-link" aria-hidden="true">#</a>
+  </h2>
+
+  <section class="no-shot">
+    <ul class="remove-list-whitespace">
+      <li>Link: <a href="https://exploringjs.com">default link style</a></li>
+      <li>Link:
+        <a class="simple-underline" href="https://exploringjs.com">simple underline</a>
+        (no color and more underline offset)
+      </li>
+      <li>Link: <a class="hover-underline" href="https://exploringjs.com">underline on hover</a></li>
+    </ul>
+  </section>
+
+  <h2 id="table-unstyled">
+    Unstyled table
+    <a href="#table-unstyled" class="heading-link" aria-hidden="true">#</a>
+  </h2>
+
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Acronym</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WWW<br>W3</td>
+          <td>World Wide Web</td>
+        </tr>
+        <tr>
+          <td>HTML</td>
+          <td>Hypertext Markup Language</td>
+        </tr>
+        <tr>
+          <td>HTTP</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2 id="table-styled">
+    Styled table
+    <a href="#table-styled" class="heading-link" aria-hidden="true">#</a>
+  </h2>
+
+  <section>
+    <table class="framed">
+      <thead>
+        <tr>
+          <th>Acronym</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WWW<br>W3</td>
+          <td>World Wide Web</td>
+        </tr>
+        <tr>
+          <td>HTML</td>
+          <td>Hypertext Markup Language</td>
+        </tr>
+        <tr>
+          <td>HTTP</td>
+          <td>Hypertext Transfer Protocol</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2 id="aligning-table-columns">
+    Aligning table columns
+    <a href="#aligning-table-columns" class="heading-link" aria-hidden="true">#</a>
+  </h2>
+  <section>
+    <style>
+      .col1-right td:nth-child(1) {
+        text-align: right;
+      }
+    </style>
+
+    <table class="framed col1-right">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Product</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>5</td>
+          <td>Toothbrush</td>
+        </tr>
+        <tr>
+          <td>1000</td>
+          <td>Pen</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td>Egg</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script type="module" src="shared/add-element-shots.js"></script>
+</body>
+</html>

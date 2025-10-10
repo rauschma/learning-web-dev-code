@@ -3,16 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>CSS selector test</title>
+
+  <link rel="stylesheet" href="../shared/global.css">
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
-    html {
-      margin: 2rem auto 2rem auto;
-      max-width: 45rem;
-    }
-
     #html-rendered {
       margin-top: 1rem;
       margin-bottom: 1rem;
@@ -45,6 +38,9 @@
   <style id="computed-style"></style>
 </head>
 <body>
+  <nav aria-label="breadcrumbs">
+    <a href="https://github.com/rauschma/learning-web-dev-code/">Web dev</a> ⏵
+  </nav>
   <h1>CSS selector test</h1>
   <div>
     <textarea id="html-source" cols="80" rows="20"></textarea>
