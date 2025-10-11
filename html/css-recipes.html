@@ -2,8 +2,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+
   <title>CSS recipes</title>
-  <link rel="stylesheet" href="shared/element-shots.css">
+  
   <style>
     /********** CSS variables **********/
 
@@ -21,10 +23,10 @@
 
     /********** Centering content **********/
 
-    html {
+    body {
       box-sizing: content-box;
-      margin: 2rem auto; /* tb lr */
-      padding: 1rem;
+      margin: 0 auto; /* vertical horizontal */
+      padding: 0.5rem;
       min-width: 10rem;
       max-width: 35rem;
     }
@@ -73,6 +75,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="shared/element-shots.css">
 </head>
 <body>
   <nav aria-label="breadcrumbs">

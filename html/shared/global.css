@@ -12,8 +12,11 @@
   box-sizing: border-box;
 }
 
-html {
-  margin: 2rem auto; /* vertical horizontal */
+body {
+  box-sizing: content-box;
+  margin: 0 auto; /* vertical horizontal */
+  padding: 0.5rem;
+  min-width: 10rem;
   max-width: 35rem;
 }
 
