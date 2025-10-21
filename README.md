@@ -13,6 +13,7 @@
 ## Visit the HTML pages online
 
 * [`css-basics.html`](https://rauschma.github.io/learning-web-dev-code/html/css-basics.html)
+* [`css-layout.html`](https://rauschma.github.io/learning-web-dev-code/html/css-layout.html)
 * [`css-recipes.html`](https://rauschma.github.io/learning-web-dev-code/html/css-recipes.html)
 * [`html-content.html`](https://rauschma.github.io/learning-web-dev-code/html/html-content.html)
 * [`html-controls.html`](https://rauschma.github.io/learning-web-dev-code/html/html-controls.html)
