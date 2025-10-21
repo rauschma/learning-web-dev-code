@@ -10,8 +10,14 @@ section {
   /*
    * Temporary bottom margin so that adding the shot UI elements does not
    * change the layout
+   *
+   * How to pick a good value:
+   * - Go to a heading ID so that it is highlighted.
+   * - When you reload, the heading jumps to the top. Later, JS adds the
+   *   element shot links. If the heading moves (up or down), we have to
+   *   adjust the `margin-bottom below.
    */
-  margin-bottom: 5.25rem;
+  margin-bottom: calc(3rem + 1rem + 1.18rem);
   &.has-element-shots {
     margin-bottom: 0;
   }

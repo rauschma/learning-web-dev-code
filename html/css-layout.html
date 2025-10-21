@@ -1,0 +1,2544 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>CSS layout</title>
+
+  <link rel="stylesheet" href="shared/global.css">
+  <!-- Can’t use @import – due to library html-to-image (add-element-shots.js) -->
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="shared/element-shots.css">
+  <style>
+    html {
+      font-family: "DejaVu Sans";
+    }
+  </style>
+</head>
+<body>
+  <!--Instructions: see JS file referenced at the end-->
+
+  <nav aria-label="breadcrumbs">
+    <a href="https://github.com/rauschma/learning-web-dev-code/">Web dev</a> ⏵
+  </nav>
+  <h1>CSS layout</h1>
+
+  <ul>
+    <li><a href="#flexbox-layout">Flexbox layout</a></li>
+    <li><a href="#grid-layout">Grid layout</a></li>
+    <li><a href="#layout-examples">Layout examples</a></li>
+    <li><a href="#container-queries">Container queries</a></li>
+  </ul>
+
+  <!-- ======================================== -->
+
+  <h2 id="CSS-layout">CSS layout</h2>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="intro-link-list">Intro: list of links</h3>
+  <section>
+    <style>
+      #intro-link-list + section {
+        .horizontal-bar {
+          border: dashed thin gray;
+          padding: 0.5rem;
+          display: flex;
+          column-gap: 1.5rem;
+
+          & > span {
+            text-decoration: underline;
+          }
+        }
+      }
+    </style>
+
+    <div class="horizontal-bar">
+      <span>Link1</span>
+      <span>Link2</span>
+      <span>Link3</span>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="intro-sidebar-layout">Intro: content plus sidebar</h3>
+  <section>
+    <style>
+      #intro-sidebar-layout + section {
+        .wrapper {
+          container-type: inline-size;
+          width: 18rem;
+        }
+        .container {
+          display: grid;
+          grid-template-columns: 2rem 1fr;
+          grid-template-rows: min-content;
+          grid-template-areas: 
+            "sidebar content"
+          ;
+          gap: 0.25rem;
+          justify-content: start;
+        }
+
+        .sidebar {
+          writing-mode: sideways-lr;
+          border: solid 1px black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .content {
+          border: solid 1px black;
+          padding: 0.5rem;
+        }
+      }
+    </style>
+
+    <div class="wrapper">
+      <div class="container">
+        <div class="sidebar" style="grid-area: sidebar">
+          Sidebar
+        </div>
+        <div class="content" style="grid-area: content">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="flexbox-layout">Flexbox layout</h2>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-example-flex-direction">Flexbox example: <code>flex-direction</code></h3>
+  <section>
+    <style>
+      #flexbox-example-flex-direction + section {
+        .vertical {
+          display: flex;
+          flex-direction: column;
+
+          border: dashed thin gray;
+        }
+      }
+    </style>
+
+    <div class="vertical">
+      Text without span
+      <span>Text inside span</span>
+      <a href="https://example.com">Link</a>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-flex-direction">Property: <code>flex-direction</code></h3>
+  <section>
+    <style>
+      #flexbox-property-flex-direction + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        .container {
+          width: 120px;
+          height: 90px;
+          border: dashed thin gray;
+          display: flex;
+          gap: 5px;
+        }
+
+        .container > span {
+          display: flex;
+          font-size: small;
+          width: 20px;
+          height: 20px;
+          border: solid thin black;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    </style>
+    
+    <div class="row" style="grid-column: span 2;">
+      <code>flex-direction:</code>
+    </div>
+
+    <div class="row">
+      <code>row</code>
+      <div style="flex-direction: row" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+    </div>
+    <div class="row">
+      <code>row-reverse</code>
+      <div style="flex-direction: row-reverse" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+    </div>
+    <div class="row">
+      <code>column</code>
+      <div style="flex-direction: column" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+    </div>
+    <div class="row">
+      <code>column-reverse</code>
+      <div style="flex-direction: column-reverse" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-example-justify-content">Flexbox example: <code>justify-content</code></h3>
+  <section>
+    <style>
+      #flexbox-example-justify-content + section {
+        .vertical {
+          height: 7rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+
+          border: dashed thin gray;
+        }
+      }
+    </style>
+
+    <div class="vertical">
+      Text without span
+      <span>Text inside span</span>
+      <a href="https://example.com">Link</a>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-example-gap">Flexbox example: <code>gap</code></h3>
+  <section>
+    <style>
+      #flexbox-example-gap + section {
+        .vertical {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5em;
+
+          border: dashed thin gray;
+        }
+      }
+    </style>
+
+    <div class="vertical">
+      Text without span
+      <span>Text inside span</span>
+      <a href="https://example.com">Link</a>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-justify-content">Property: <code>justify-content</code></h3>
+  <section>
+    <style>
+      #flexbox-property-justify-content + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        .container {
+          width: 160px;
+          border: dashed thin gray;
+          display: flex;
+          flex-direction: row;
+        }
+
+        .container > span {
+          height: 20px;
+          background-color: gainsboro;
+          border: solid thin black;
+        }
+        .container > span:nth-child(1) {
+          width: 48px;
+        }
+        .container > span:nth-child(2) {
+          width: 16px;
+        }
+        .container > span:nth-child(3) {
+          width: 32px;
+        }
+      }
+    </style>
+    
+    <div class="row" style="grid-column: span 2;">
+      <code>justify-content:</code>
+    </div>
+
+    <div class="row">
+      <code>flex-start</code>
+      <div style="justify-content: flex-start" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>flex-end</code>
+      <div style="justify-content: flex-end" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>center</code>
+      <div style="justify-content: center" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-between</code>
+      <div style="justify-content: space-between" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-around</code>
+      <div style="justify-content: space-around" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-evenly</code>
+      <div style="justify-content: space-evenly" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-example-align-items">Flexbox example: <code>align-items</code></h3>
+  <section>
+    <style>
+      #flexbox-example-align-items + section {
+        .vertical {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          border: dashed thin gray;
+        }
+      }
+    </style>
+
+    <div class="vertical">
+      Text without span
+      <span>Text inside span</span>
+      <a href="https://example.com">Link</a>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-example-align-self">Flexbox example: <code>align-self</code></h3>
+  <section>
+    <style>
+      #flexbox-example-align-self + section {
+        .vertical {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          border: dashed thin gray;
+        }
+        a {
+          align-self: flex-end;
+        }
+      }
+    </style>
+
+    <div class="vertical">
+      Text without span
+      <span>Text inside span</span>
+      <a href="https://example.com">Link</a>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-align-items">Property: <code>align-items</code></h3>
+  <section>
+    <style>
+      #flexbox-property-align-items + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        .container, .baseline-container {
+          height: 64px;
+          width: 144px;
+          border: dashed thin gray;
+          display: flex;
+          flex-direction: row;
+          column-gap: 8px;
+        }
+
+        .container > span {
+          width: 24px;
+          background-color: gainsboro;
+          border: solid thin black;
+        }
+        .container > span:nth-child(1) {
+          min-height: 48px;
+        }
+        .container > span:nth-child(2) {
+          min-height: 16px;
+        }
+        .container > span:nth-child(3) {
+          min-height: 32px;
+        }
+
+        .baseline-container > span {
+          border: solid thin black;
+          padding: 2px;
+          text-decoration: underline;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>align-items:</code>
+    </div>
+
+    <div class="row">
+      <code>stretch</code>
+      <div style="align-items: stretch" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <code>center</code>
+      <div style="align-items: center" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>flex-start</code>
+      <div style="align-items: flex-start" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>flex-end</code>
+      <div style="align-items: flex-end" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>baseline</code>
+      <div style="align-items: baseline" class="baseline-container">
+        <span style="font-size: 160%;">how</span>
+        <span style="font-size: 50%;">are</span>
+        <span style="font-size: 100%;">you</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-flex-wrap">Property: <code>flex-wrap</code></h3>
+  <section>
+    <style>
+      #flexbox-property-flex-wrap + section {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        & > div > span {
+          text-wrap: nowrap;
+        }
+
+        .container {
+          border: dashed thin gray;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: var(--flex-wrap);
+          align-content: flex-start;
+          gap: 5px;
+        }
+
+        .container > span {
+          height: 16px;
+          border: solid thin black;
+          font-size: small;
+        }
+        .container > span:nth-child(1) {
+          width: 16px;
+        }
+        .container > span:nth-child(2) {
+          width: 32px;
+        }
+        .container > span:nth-child(3) {
+          width: 16px;
+        }
+        .container > span:nth-child(4) {
+          width: 16px;
+        }
+        .container > span:nth-child(5) {
+          width: 32px;
+        }
+        .container > span:nth-child(6) {
+          width: 32px;
+        }
+      }
+    </style>
+    
+    <div class="row" style="grid-column: span 2;">
+      <code>flex-wrap:</code>
+    </div>
+
+    <div>
+      <span><code>nowrap</code> (automatic width)</span>
+      <div style="--flex-wrap: nowrap; width: max-content;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+    
+    <div>
+      <span><code>nowrap</code> (fixed width)</span>
+      <div style="--flex-wrap: nowrap; width: 120px;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+
+    <div>
+      <span><code>wrap</code> (automatic width)</span>
+      <div style="--flex-wrap: wrap; width: max-content;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+    
+    <div>
+      <span><code>wrap</code> (fixed width)</span>
+      <div style="--flex-wrap: wrap; width: 120px;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+
+    <div>
+      <span><code>wrap-reverse</code> (automatic width)</span>
+      <div style="--flex-wrap: wrap-reverse; width: max-content;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+
+    <div>
+      <span><code>wrap-reverse</code> (fixed width)</span>
+      <div style="--flex-wrap: wrap-reverse; width: 120px;" class="container">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-align-content">Property: <code>align-content</code></h3>
+  <section>
+    <style>
+      #flexbox-property-align-content + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        .container {
+          width: 120px;
+          height: 90px;
+          border: dashed thin gray;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          column-gap: 5px;
+        }
+
+        .container > span {
+          min-height: 16px;
+          background-color: gainsboro;
+          border: solid thin black;
+        }
+        .container > span:nth-child(1) {
+          width: 16px;
+        }
+        .container > span:nth-child(2) {
+          width: 32px;
+        }
+        .container > span:nth-child(3) {
+          width: 16px;
+        }
+        .container > span:nth-child(4) {
+          width: 16px;
+        }
+        .container > span:nth-child(5) {
+          width: 32px;
+        }
+        .container > span:nth-child(6) {
+          width: 32px;
+        }
+        .container > span:nth-child(7) {
+          width: 16px;
+        }
+        .container > span:nth-child(8) {
+          width: 16px;
+        }
+        .container > span:nth-child(9) {
+          width: 24px;
+        }
+        .container > span:nth-child(10) {
+          width: 16px;
+        }
+      }
+    </style>
+    
+    <div class="row" style="grid-column: span 2;">
+      <code>align-content:</code>
+    </div>
+
+    <div class="row">
+      <code>stretch</code>
+      <div style="align-content: stretch" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>center</code>
+      <div style="align-content: center" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>flex-start</code>
+      <div style="align-content: flex-start" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>flex-end</code>
+      <div style="align-content: flex-end" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-between</code>
+      <div style="align-content: space-between" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-around</code>
+      <div style="align-content: space-around" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="row">
+      <code>space-evenly</code>
+      <div style="align-content: space-evenly" class="container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="flexbox-property-gap">Properties: gaps</h3>
+  <section>
+    <style>
+      #flexbox-property-gap + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        column-gap: 20px;
+        row-gap: 10px;
+
+        .group-title {
+          grid-column: 1 / 3;
+          width: auto;
+        }
+
+        .entry {
+          width: 145px;
+        }
+        .row-container, .column-container {
+          width: 95px;
+          height: 70px;
+          border: dashed thin gray;
+          display: flex;
+          flex-wrap: wrap;
+          align-content: flex-start;
+          column-gap: var(--column-gap, 0);
+          row-gap: var(--row-gap, 0);
+  
+          & > span {
+            background-color: gainsboro;
+            border: solid thin black;
+          }
+        }
+      }
+    </style>
+    
+    <!-- ···················· -->
+    
+    <div class="group-title">
+      <code>flex-direction: row</code>
+    </div>
+
+    <style>
+      #flexbox-property-gap + section .row-container {
+        flex-direction: row;
+
+        & > span {
+          height: 16px;
+          font-size: small;
+          text-align: left;
+          padding-left: 2px;
+        }
+        & > span:nth-child(1) {
+          width: 16px;
+          &:before {
+            content: "1";
+          }
+        }
+        & > span:nth-child(2) {
+          width: 32px;
+          &:before {
+            content: "2";
+          }
+        }
+        & > span:nth-child(3) {
+          width: 16px;
+          &:before {
+            content: "3";
+          }
+        }
+        & > span:nth-child(4) {
+          width: 16px;
+          &:before {
+            content: "4";
+          }
+        }
+        & > span:nth-child(5) {
+          width: 32px;
+          &:before {
+            content: "5";
+          }
+        }
+        & > span:nth-child(6) {
+          width: 32px;
+          &:before {
+            content: "6";
+          }
+        }
+        & > span:nth-child(7) {
+          width: 16px;
+          &:before {
+            content: "7";
+          }
+        }
+      }
+    </style>
+
+    <div class="entry">
+      (no gap)
+      <div class="row-container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>column-gap: 0.5rem</code>
+      <div class="row-container" style="--column-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>row-gap: 0.5rem</code>
+      <div class="row-container" style="--row-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>gap: 0.5rem</code>
+      <div class="row-container" style="--column-gap: 0.5rem; --row-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <!-- ···················· -->
+    
+    <div class="group-title">
+      <code>flex-direction: column</code>
+    </div>
+
+    <style>
+      #flexbox-property-gap + section .column-container {
+        flex-direction: column;
+
+        & > span {
+          width: 16px;
+          font-size: small;
+          text-align: left;
+          padding-left: 2px;
+        }
+        & > span:nth-child(1) {
+          height: 16px;
+          &:before {
+            content: "1";
+          }
+
+        }
+        & > span:nth-child(2) {
+          height: 32px;
+          &:before {
+            content: "2";
+          }
+
+        }
+        & > span:nth-child(3) {
+          height: 16px;
+          &:before {
+            content: "3";
+          }
+
+        }
+        & > span:nth-child(4) {
+          height: 16px;
+          &:before {
+            content: "4";
+          }
+
+        }
+        & > span:nth-child(5) {
+          height: 32px;
+          &:before {
+            content: "5";
+          }
+
+        }
+        & > span:nth-child(6) {
+          height: 32px;
+          &:before {
+            content: "6";
+          }
+
+        }
+        & > span:nth-child(7) {
+          height: 16px;
+          &:before {
+            content: "7";
+          }
+
+        }
+      }
+    </style>
+
+    <div class="entry">
+      (no gap)
+      <div class="column-container">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>column-gap: 0.5rem</code>
+      <div class="column-container" style="--column-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>row-gap: 0.5rem</code>
+      <div class="column-container" style="--row-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>gap: 0.5rem</code>
+      <div class="column-container" style="--column-gap: 0.5rem; --row-gap: 0.5rem">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="grid-layout">Grid layout</h2>
+
+  <style>
+    :root {
+      /* Width of final .content plus 1/2 gap per side */
+      --1fr-column: calc(200px + 0.25rem);
+      /* Height of final .content plus 1/2 gap per side */
+      --1fr-row: calc(152px + 0.25rem);
+    }
+  </style>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-example-result">Grid layout result</h3>
+  <section>
+    <style>
+      #grid-example-result + section {
+        .container {
+          width: 20rem;
+          height: 13rem;
+          display: grid;
+          grid-template-columns: 3.5rem 1fr 3.5rem;
+          grid-template-rows: 1.5rem 1fr 1.5rem;
+          grid-template-areas: 
+            ".       header  rightbar"
+            "leftbar content rightbar"
+            "footer  footer  footer"
+          ;
+          gap: 0.25rem;
+          justify-content: start;
+        }
+        .container > div {
+          border: solid 1px black;
+          padding: 1.5px 4px;
+        }
+        .header {
+          grid-area: header; 
+        }
+        .leftbar {
+          grid-area: leftbar;
+        }
+        .content {
+          grid-area: content;
+        }
+        .rightbar {
+          grid-area: rightbar;
+        }
+        .footer {
+          grid-area: footer;
+        }
+      }
+    </style>
+
+    <div class="container">
+      <div class="header">
+        header
+      </div>
+      <div class="leftbar">
+        left bar
+      </div>
+      <div class="content">
+        content
+      </div>
+      <div class="rightbar">
+        right bar
+      </div>
+      <div class="footer">
+        footer
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-example-grid-template">Defining the grid</h3>
+  <section>
+    <style>
+      #grid-example-grid-template + section {
+        .container {
+          padding-right: 1px;
+          padding-bottom: 1px;
+          display: grid;
+          grid-template-columns: min-content /**/ 3.5rem var(--1fr-column) 3.5rem;
+          grid-template-rows: min-content /**/ 1.5rem var(--1fr-row) 1.5rem;
+          grid-template-areas:
+            ".    colA   colB   colC  "
+            "row1 cellA1 cellB1 cellC1"
+            "row2 cellA2 cellB2 cellC2"
+            "row3 cellA3 cellB3 cellC3"
+          ;
+          gap: 1px;
+          align-content: center;
+        }
+        .container > div {
+          outline: dashed 1px gray;
+          &.col, &.row {
+            outline: none;
+          }
+          &.col {
+            text-align: center;
+            padding-bottom: 1px;
+          }
+          &.row {
+            text-align: right;
+            padding-right: 4px;
+          }
+        }
+      }
+    </style>
+
+    <div class="container">
+      <div style="grid-area: colA" class="col">
+        3.5rem
+      </div>
+      <div style="grid-area: colB" class="col">
+        1fr
+      </div>
+      <div style="grid-area: colC" class="col">
+        3.5rem
+      </div>
+
+      <div style="grid-area: row1" class="row">
+        1.5rem
+      </div>
+      <div style="grid-area: row2" class="row">
+        1fr
+      </div>
+      <div style="grid-area: row3" class="row">
+        1.5rem
+      </div>
+      
+      <div style="grid-area: cellA1">
+      </div>
+      <div style="grid-area: cellB1">
+      </div>
+      <div style="grid-area: cellC1">
+      </div>
+
+      <div style="grid-area: cellA2">
+      </div>
+      <div style="grid-area: cellB2">
+      </div>
+      <div style="grid-area: cellC2">
+      </div>
+
+      <div style="grid-area: cellA3">
+      </div>
+      <div style="grid-area: cellB3">
+      </div>
+      <div style="grid-area: cellC3">
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-example-placement">Placing grid items</h3>
+  <section>
+    <style>
+      #grid-example-placement + section {
+        .container {
+          padding-right: 1px;
+          padding-bottom: 1px;
+          display: grid;
+          grid-template-columns: min-content /**/ 3.5rem var(--1fr-column) 3.5rem /**/ min-content;
+          grid-template-rows: min-content /**/ 1.5rem var(--1fr-row) 1.5rem /**/ min-content;
+          grid-template-areas:
+            ".    colA   colB   colC   colD"
+            "row1 cellA1 cellB1 cellC1 .   "
+            "row2 cellA2 cellB2 cellC2 .   "
+            "row3 cellA3 cellB3 cellC3 .   "
+            "row4 .      .      .      .   "
+          ;
+          gap: 1px;
+          align-content: center;
+        }
+        .container > div {
+          &.col {
+            text-align: left;
+            margin-left: -0.35rem;
+            padding-bottom: 1px;
+          }
+          &.row {
+            text-align: right;
+            margin-top: -0.6rem;
+            padding-right: 4px;
+          }
+          &.cell {
+            outline: dashed 1px gray;
+          }
+        }
+
+        .header, .leftbar, .content, .rightbar, .footer {
+          margin: 2px;
+          border: solid 1px black;
+          padding: 0px 3px;
+          /* background-color: white; */
+        }
+        .header {
+          grid-column-start: 3;
+          grid-column-end: 4;
+          grid-row-start: 2;
+          grid-row-end: 3;
+        }
+        .leftbar {
+          grid-column-start: 2;
+          grid-column-end: 3;
+          grid-row-start: 3;
+          grid-row-end: 4;
+        }
+        .content {
+          grid-column-start: 3;
+          grid-column-end: 4;
+          grid-row-start: 3;
+          grid-row-end: 4;
+        }
+        .rightbar {
+          grid-column-start: 4;
+          grid-column-end: 5;
+          grid-row-start: 2;
+          grid-row-end: 4;
+        }
+        .footer {
+          grid-column-start: 2;
+          grid-column-end: 5;
+          grid-row-start: 4;
+          grid-row-end: 5;
+        }
+      }
+    </style>
+
+    <div class="container">
+      
+      <!-- ·········· col ·········· -->
+
+      <div class="col" style="grid-area: colA">
+        1
+      </div>
+      <div class="col" style="grid-area: colB">
+        2
+      </div>
+      <div class="col" style="grid-area: colC">
+        3
+      </div>
+      <div class="col" style="grid-area: colD">
+        4
+      </div>
+
+      <!-- ·········· row ·········· -->
+
+      <div class="row" style="grid-area: row1">
+        1
+      </div>
+      <div class="row" style="grid-area: row2">
+        2
+      </div>
+      <div class="row" style="grid-area: row3">
+        3
+      </div>
+      <div class="row" style="grid-area: row4">
+        4
+      </div>
+
+      <!-- ·········· cell ·········· -->
+
+      <div class="cell" style="grid-area: cellA1"></div>
+      <div class="cell" style="grid-area: cellB1"></div>
+      <div class="cell" style="grid-area: cellC1"></div>
+
+      <div class="cell" style="grid-area: cellA2"></div>
+      <div class="cell" style="grid-area: cellB2"></div>
+      <div class="cell" style="grid-area: cellC2"></div>
+
+      <div class="cell" style="grid-area: cellA3"></div>
+      <div class="cell" style="grid-area: cellB3"></div>
+      <div class="cell" style="grid-area: cellC3"></div>
+
+      <!-- ·········· areas ·········· -->
+
+      <div class="header">
+        header
+      </div>
+      <div class="leftbar">
+        left bar
+      </div>
+      <div class="content">
+        content
+      </div>
+      <div class="rightbar">
+        right bar
+      </div>
+      <div class="footer">
+        footer
+      </div>
+
+      <!-- ···················· -->
+
+    </div> <!-- .container -->
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-example-min-content-max-content"><code>min-content</code> vs. <code>max-content</code></h3>
+  <section>
+    <style>
+      #grid-example-min-content-max-content + section {
+        padding: 1px; /* Include the `outline` of the cells */
+
+        .container + .title {
+          margin-top: 1em;
+        }
+        .title {
+          margin-bottom: 0.5em;
+        }
+        .container {
+          display: grid;
+          grid-template-columns: min-content max-content;
+          grid-template-rows: min-content min-content;
+          grid-template-areas:
+            "min-header max-header"
+            "min-cell max-cell"
+          ;
+          gap: 1px;
+        }
+        .container > div {
+          padding: 0.25em 0.5em;
+          outline: dotted 1px gray;
+        }
+      }
+    </style>
+
+    <div class="title">
+      Content that can become narrower
+    </div>
+    <div class="container">
+      <div style="grid-area: min-header">
+        <code>min-content</code>
+      </div>
+      <div style="grid-area: max-header">
+        <code>max-content</code>
+      </div>
+      <div style="grid-area: min-cell">
+        This is the content.
+      </div>
+      <div style="grid-area: max-cell">
+        This is the content.
+      </div>
+    </div>
+
+    <div class="title">
+      Content that cannot become narrower
+    </div>
+    <div class="container">
+      <div style="grid-area: min-header">
+        <code>min-content</code>
+      </div>
+      <div style="grid-area: max-header">
+        <code>max-content</code>
+      </div>
+      <div style="grid-area: min-cell">
+        Disproportionately
+      </div>
+      <div style="grid-area: max-cell">
+        Disproportionately
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-grid-auto-flow">Property: <code>grid-auto-flow</code></h3>
+  <section>
+    <style>
+      #grid-property-grid-auto-flow + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        gap: 1rem;
+
+        .container {
+          border: dashed 1px gray;
+          display: grid;
+          grid-template-columns: 48px 24px 48px;
+          grid-template-rows: 24px 48px 24px;
+          gap: 4px;
+        }
+        .container > div.content {
+          border: solid 1px black;
+          padding: 2px 5px;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>grid-auto-flow:</code>
+    </div>
+
+    <div>
+      <code>row</code>
+      <div class="container" style="grid-auto-flow: row">
+        <div class="content">1</div>
+        <div class="content">2</div>
+        <div class="content">3</div>
+        <div class="content">4</div>
+        <div class="content">5</div>
+        <div class="content">6</div>
+        <div class="content">7</div>
+      </div>
+    </div>
+
+    <div>
+      <code>column</code>
+      <div class="container" style="grid-auto-flow: column">
+        <div class="content">1</div>
+        <div class="content">2</div>
+        <div class="content">3</div>
+        <div class="content">4</div>
+        <div class="content">5</div>
+        <div class="content">6</div>
+        <div class="content">7</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-justify-items">Property: <code>justify-items</code></h3>
+  <section>
+    <style>
+      #grid-property-justify-items + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        gap: 1rem;
+
+        .container {
+          display: grid;
+          justify-items: var(--justify-items);
+          align-items: start;
+          grid-template-columns: 60px 60px;
+          grid-template-rows: 30px 30px;
+          grid-template-areas:
+            "cellA1 cellB1"
+            "cellA2 cellB2"
+          ;
+          gap: 1px;
+        }
+        .container > div.cell {
+          outline: dotted 1px gray;
+          justify-self: stretch;
+          align-self: stretch;
+        }
+        .container > div.content {
+          min-width: 32px;
+          min-height: 16px;
+          border: solid 1px black;
+          background-color: gainsboro;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>justify-items:</code>
+    </div>
+
+    <div>
+      <code>start</code>
+      <div class="container" style="--justify-items: start">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>end</code>
+      <div class="container" style="justify-items: end">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>center</code>
+      <div class="container" style="--justify-items: center">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>stretch</code>
+      <div class="container" style="--justify-items: stretch">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-align-items">Property: <code>align-items</code></h3>
+  <section>
+    <style>
+      #grid-property-align-items + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        gap: 1rem;
+
+        .container {
+          display: grid;
+          align-items: var(--align-items);
+          justify-items: start;
+          grid-template-columns: 60px 60px;
+          grid-template-rows: 30px 30px;
+          grid-template-areas:
+            "cellA1 cellB1"
+            "cellA2 cellB2"
+          ;
+          gap: 1px;
+        }
+        .container > div.cell {
+          outline: dotted 1px gray;
+          justify-self: stretch;
+          align-self: stretch;
+        }
+        .container > div.content {
+          min-width: 32px;
+          min-height: 16px;
+          border: solid 1px black;
+          background-color: gainsboro;
+        }
+        .container > div.content.nobg {
+          background-color: transparent;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>align-items:</code>
+    </div>
+
+    <div>
+      <code>start</code>
+      <div class="container" style="--align-items: start">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>end</code>
+      <div class="container" style="--align-items: end">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>center</code>
+      <div class="container" style="--align-items: center">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>stretch</code>
+      <div class="container" style="--align-items: stretch">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>baseline</code>
+      <div class="container" style="--align-items: baseline; text-decoration: underline;">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content nobg" style="grid-area: cellA1">Piggy</div>
+        <div class="content nobg" style="grid-area: cellB1; font-size: xx-small;">anon</div>
+        <div class="content nobg" style="grid-area: cellA2; font-size: xx-small;">muse</div>
+        <div class="content nobg" style="grid-area: cellB2">QUIRK</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-justify-content">Property: <code>justify-content</code></h3>
+  <section>
+    <style>
+      #grid-property-justify-content + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        gap: 1rem;
+
+        .container {
+          border: dashed 1px gray;
+          display: grid;
+          width: 120px;
+          height: 60px;
+          justify-content: var(--justify-content);
+          grid-template-columns: min-content min-content;
+          grid-template-rows: min-content min-content;
+          grid-template-areas:
+            "cellA1 cellB1"
+            "cellA2 cellB2"
+          ;
+          gap: 1px;
+        }
+        .container > div.cell {
+          outline: dotted 1px gray;
+          justify-self: stretch;
+          align-self: stretch;
+        }
+        .container > div.content {
+          margin: 2px 4px;
+          width: 16px;
+          height: 16px;
+          border: solid 1px black;
+          background-color: gainsboro;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>justify-content:</code>
+    </div>
+
+    <div>
+      <code>start</code>
+      <div class="container" style="--justify-content: start">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>end</code>
+      <div class="container" style="--justify-content: end">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>center</code>
+      <div class="container" style="--justify-content: center">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-around </code>
+      <div class="container" style="--justify-content: space-around ">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-between</code>
+      <div class="container" style="--justify-content: space-between">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-evenly</code>
+      <div class="container" style="--justify-content: space-evenly">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-align-content">Property: <code>align-content</code></h3>
+  <section>
+    <style>
+      #grid-property-align-content + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        gap: 1rem;
+
+        .container {
+          border: dashed 1px gray;
+          display: grid;
+          width: 120px;
+          height: 60px;
+          align-content: var(--align-content);
+          grid-template-columns: min-content min-content;
+          grid-template-rows: min-content min-content;
+          grid-template-areas:
+            "cellA1 cellB1"
+            "cellA2 cellB2"
+          ;
+          gap: 1px;
+        }
+        .container > div.cell {
+          outline: dotted 1px gray;
+          justify-self: stretch;
+          align-self: stretch;
+        }
+        .container > div.content {
+          margin: 2px 4px;
+          width: 16px;
+          height: 16px;
+          border: solid 1px black;
+          background-color: gainsboro;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>align-content:</code>
+    </div>
+
+    <div>
+      <code>start</code>
+      <div class="container" style="--align-content: start">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>end</code>
+      <div class="container" style="--align-content: end">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>center</code>
+      <div class="container" style="--align-content: center">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-around </code>
+      <div class="container" style="--align-content: space-around ">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-between</code>
+      <div class="container" style="--align-content: space-between">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+
+    <div>
+      <code>space-evenly</code>
+      <div class="container" style="--align-content: space-evenly">
+        <div class="cell" style="grid-area: cellA1"></div>
+        <div class="cell" style="grid-area: cellB1"></div>
+        <div class="cell" style="grid-area: cellA2"></div>
+        <div class="cell" style="grid-area: cellB2"></div>
+
+        <div class="content" style="grid-area: cellA1"></div>
+        <div class="content" style="grid-area: cellB1"></div>
+        <div class="content" style="grid-area: cellA2"></div>
+        <div class="content" style="grid-area: cellB2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="grid-property-gap">Properties: gaps</h3>
+  <section>
+    <style>
+      #grid-property-gap + section {
+        display: grid;
+        grid-template-columns: max-content max-content;
+        gap: 1rem;
+
+        .container {
+          border: dashed 1px gray;
+          display: grid;
+          width: 120px;
+          height: 60px;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+        }
+        .container > div {
+          border: solid 1px black;
+          background-color: gainsboro;
+        }
+      }
+    </style>
+
+    <div class="row" style="grid-column: span 2;">
+      <code>column-gap, row-gap, gap:</code>
+    </div>
+
+    <div class="entry">
+      <span>(no gap)</span>
+      <div class="container" style="gap: 0">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>column-gap: 0.5rem</code>
+      <div class="container" style="column-gap: 0.5rem">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>row-gap: 0.5rem</code>
+      <div class="container" style="row-gap: 0.5rem">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <code>gap: 0.5rem</code>
+      <div class="container" style="gap: 0.5rem">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="layout-examples">Layout examples</h2>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="example-centering">Centering content horizontally and vertically</h3>
+  <section>
+    <style>
+      #example-centering + section {
+        .container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          border: dashed thin gray;
+          width: 8rem;
+          height: 4rem;
+        }
+      }
+    </style>
+
+    <div class="container">
+      Centered
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="example-row-of-inlines-with-gaps">A row of inlines with gaps</h3>
+  <section>
+    <style>
+      #example-row-of-inlines-with-gaps + section {
+        .row-of-inlines {
+          display: flex;
+          gap: 1rem;
+
+          border: dashed thin gray;
+        }
+      }
+    </style>
+
+    <div class="row-of-inlines">
+      <span>Home</span>
+      |
+      <span>About</span>
+      |
+      <span>Follow</span>
+      |
+      <span>Archive</span>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="example-column-of-blocks-with-gaps">A column of blocks with gaps</h3>
+  <section>
+    <style>
+      #example-column-of-blocks-with-gaps + section {
+        .column-of-blocks {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          width: 50px;
+          border: dashed thin gray;
+        }
+        .column-of-blocks > div {
+          width: 30px;
+          height: 30px;
+          border: solid thin black;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    </style>
+
+    <div class="column-of-blocks">
+      <div>A</div>
+      <div>B</div>
+      <div>C</div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="example-row-of-blocks-wrapped">A row of blocks that wraps</h3>
+  <section>
+    <style>
+      #example-row-of-blocks-wrapped + section {
+        .row-of-blocks {
+          flex-wrap: wrap;
+          gap: 1rem;
+
+          width: 140px;
+          border: dashed thin gray;
+          display: flex;
+        }
+        .row-of-blocks > div {
+          width: 30px;
+          height: 30px;
+          border: solid thin black;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    </style>
+
+    <div class="row-of-blocks">
+      <div>A</div>
+      <div>B</div>
+      <div>C</div>
+      <div>D</div>
+      <div>E</div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="example-aligning-labels-and-inputs">Aligning labels and text fields</h3>
+  <section>
+    <style>
+      #example-aligning-labels-and-inputs + section {
+        .container {
+          display: grid;
+          grid-template-columns: min-content min-content;
+          grid-template-rows: min-content;
+          gap: 0.5rem;
+          /* align-items: baseline; */
+        }
+        input {
+          font-size: 200%;
+        }
+      }
+    </style>
+
+    <div class="container">
+      <label for="celsius">Celsius:</label>
+      <input type="text" id="celsius" size="5" value="100">
+
+      <label for="fahrenheit">Fahrenheit:</label>
+      <input type="text" id="fahrenheit" size="5" value="212">
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <h2 id="container-queries">Container queries</h2>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="container-query-simple-sidebar">Container query: simple sidebar</h3>
+  <section>
+    <style>
+      #container-query-simple-sidebar + section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .wrapper + .title {
+          margin-top: 0.5rem;
+        }
+
+        .wrapper {
+          border: solid 1px black;
+          container-type: inline-size;
+          container-name: wrapper;
+        }
+
+        .layout {
+          display: grid;
+          grid-template-columns: 5rem 1fr;
+          grid-template-rows: min-content;
+          gap: 0.5rem;
+          grid-template-areas: 
+            "sidebar content"
+          ;
+
+          @container wrapper (width < calc(5rem + 0.5rem + 10rem)) {
+            grid-template-columns: 1fr;
+            grid-template-rows: min-content min-content;
+            grid-template-areas: 
+              "content"
+              "sidebar"
+            ;
+          }
+        }
+
+        .sidebar {
+          border: dashed 1px gray;
+          padding: 0.35rem 0.5rem;
+          div {
+            text-decoration: underline;
+          }
+        }
+
+        .content {
+          border: dashed 1px gray;
+          padding: 0.35rem 0.5rem;
+        }
+      }
+    </style>
+
+    <div class="title"><code>width: 20rem</code></div>
+    <div style="width: 20rem" class="wrapper">
+      <div class="layout">
+        <div class="sidebar" style="grid-area: sidebar">
+          <div>Home</div>
+          <div>About</div>
+          <div>Archive</div>
+          <div>Contact</div>
+        </div>
+        <div class="content" style="grid-area: content">
+          This is the content.
+        </div>
+      </div>
+    </div>
+
+    <div class="title"><code>width: 10rem</code></div>
+    <div style="width: 10rem" class="wrapper">
+      <div class="layout">
+        <div class="sidebar" style="grid-area: sidebar">
+          <div>Home</div>
+          <div>About</div>
+          <div>Archive</div>
+          <div>Contact</div>
+        </div>
+        <div class="content" style="grid-area: content">
+          This is the content.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="container-query-responsive-sidebar">Container query: responsive sidebar</h3>
+  <section>
+    <style>
+      #container-query-responsive-sidebar + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        grid-template-rows: min-content;
+        gap: 1rem;
+
+        div:first-of-type {
+          grid-column: span 2;
+        }
+
+        .wrapper {
+          container-type: inline-size;
+          container-name: wrapper;
+        }
+
+        .layout {
+          border: solid 1px black;
+          display: grid;
+          grid-template-columns: 2rem 1fr;
+          grid-template-rows: min-content;
+          grid-template-areas: 
+            "sidebar content"
+          ;
+          gap: 0.25rem;
+          justify-content: start;
+
+          @container wrapper (width < calc(2rem + 0.25rem + 10rem)) {
+            grid-template-columns: 1fr;
+            grid-template-rows: min-content min-content;
+            grid-template-areas: 
+              "content"
+              "sidebar"
+            ;
+          }
+        }
+
+        .sidebar {
+          border: dashed 1px gray;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          @container wrapper (width < calc(2rem + 0.25rem + 10rem)) {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+          & > div {
+            width: 1rem;
+            height: 1rem;
+            border: solid 1px black;
+            font-size: small;
+            text-align: center;
+          }
+        }
+
+        .content {
+          justify-self: center;
+          align-self: start;
+          min-width: 5rem;
+          max-width: 14rem;
+          border: dashed 1px gray;
+          padding: 0 0.5rem;
+        }
+      }
+    </style>
+
+    <div style="width: 20rem" class="wrapper">
+      <div class="layout">
+        <div class="sidebar" style="grid-area: sidebar">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+        </div>
+        <div class="content" style="grid-area: content">
+          <p>This is the content.</p>
+          <p>It contains multiple paragraphs.</p>
+          <p>They wrap automatically.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 10.25rem" class="wrapper">
+      <div class="layout">
+        <div class="sidebar" style="grid-area: sidebar">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+        </div>
+        <div class="content" style="grid-area: content">
+          <p>This is the content.</p>
+          <p>It contains multiple paragraphs.</p>
+          <p>They wrap automatically.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 8.5rem; justify-self: end;" class="wrapper">
+      <div class="layout">
+        <div class="sidebar" style="grid-area: sidebar">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+        </div>
+        <div class="content" style="grid-area: content">
+          <p>This is the content.</p>
+          <p>It contains multiple paragraphs.</p>
+          <p>They wrap automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------ -->
+
+  <h3 id="container-query-contact-card">Container query: contact card</h3>
+  <section>
+    <style>
+      #container-query-contact-card + section {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        grid-template-rows: min-content;
+        gap: 1rem;
+
+        div:first-of-type {
+          grid-column: span 2;
+        }
+
+        .wrapper {
+          container-type: size;
+          container-name: wrapper;
+        }
+
+        .contact-card {
+          border: solid 1px black;
+          display: grid;
+          grid-template-columns: min-content 1fr;
+          grid-template-rows: min-content 1fr;
+          grid-template-areas: 
+            "headshot name"
+            "headshot description"
+          ;
+          gap: 0.5rem;
+          padding: 0.5rem;
+          
+          justify-content: start;
+          align-items: start;
+
+          @container wrapper
+            (width < calc(0.5rem + 110px + 0.5rem + 5.5rem + 0.5rem)) and
+            (height >= calc(0.5rem + 110px + 0.5rem + 1.2rem + 0.5rem + 5rem + 0.5rem))
+          {
+            grid-template-columns: 1fr;
+            grid-template-rows: min-content min-content min-content;
+            grid-template-areas: 
+              "headshot"
+              "name"
+              "description"
+            ;
+          }
+
+          @container wrapper
+            (width < calc(0.5rem + 110px + 0.5rem + 5.5rem + 0.5rem)) and
+            (height < calc(0.5rem + 110px + 0.5rem + 1.2rem + 0.5rem + 5rem + 0.5rem))
+          {
+            grid-template-columns: 1fr;
+            grid-template-rows: min-content min-content;
+            grid-template-areas: 
+              "headshot"
+              "name"
+            ;
+            .description {
+              display: none;
+            }
+          }
+        }
+
+        .headshot, .name, .description {
+          border: dashed 1px gray;
+        }
+
+        .headshot {
+          grid-area: headshot;
+        }
+
+        .name {
+          grid-area: name;
+          font-weight: bold;
+        }
+
+        .description {
+          grid-area: description;
+        }
+      }
+      
+    </style>
+
+    <div style="width: 23rem; height: 8.25rem;" class="wrapper">
+      <div class="contact-card">
+        <img class="headshot"
+            src="css-layout/person.svg"
+            width="110" height="110"
+        >
+        <div class="name">
+          E. Scrooge
+        </div>
+        <div class="description">
+          The hard-working boss of our company. Profits matter!
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 11rem; height: 15.20rem;" class="wrapper">
+      <div class="contact-card">
+        <img class="headshot" src="css-layout/person.svg" width="110" height="110">
+        <div class="name">
+          E. Scrooge
+        </div>
+        <div class="description">
+          The hard-working boss of our company. Profits matter!
+        </div>
+      </div>
+    </div>
+
+    <div style="width: 11rem; height: 5rem; justify-self: end;" class="wrapper">
+      <div class="contact-card">
+        <img class="headshot" src="css-layout/person.svg" width="110" height="110">
+        <div class="name">
+          E. Scrooge
+        </div>
+        <div class="description">
+          The hard-working boss of our company. Profits matter!
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================== -->
+
+  <script type="module" src="shared/add-element-shots.js"></script>
+  <script type="module" src="shared/add-heading-links.js"></script>
+</body>
+</html>

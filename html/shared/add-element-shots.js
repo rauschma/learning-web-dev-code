@@ -63,6 +63,8 @@ async function addElementShots() {
         downloadDiv,
       ],
     });
+
+    await yieldToMain();
   }
 
   const style = document.createElement('style');
@@ -194,6 +196,19 @@ function canvasToBlob(canvas, type = 'image/png') {
       type
     );
   });
+}
+
+function yieldToMain() {
+  if (globalThis.scheduler?.yield) {
+    return scheduler.yield();
+  }
+
+  // Fallback implementation
+  return new Promise(
+    (resolve) => {
+      setTimeout(resolve, 0);
+    }
+  );
 }
 
 //========== Call addElementShots() ==========
